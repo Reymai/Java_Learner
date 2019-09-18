@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "632531339101",
+    "firebase_url": "https://java-learner-rvt.firebaseio.com",
+    "project_id": "java-learner-rvt",
+    "storage_bucket": "java-learner-rvt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632531339101:android:b48712fddc52294ade8ab4",
+        "android_client_info": {
+          "package_name": "com.example.javalearner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632531339101-60aq6elq6t93j91n4rdccn1u2549jpm4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.javalearner",
+            "certificate_hash": "e20c76f5aa123512351be5a3d374bb9d72bd328c"
+          }
+        },
+        {
+          "client_id": "632531339101-epeagciel944ujq7sofovcj52b441acs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDbix1LI03U6sw8xZngauVQKUmRwJLiWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632531339101-epeagciel944ujq7sofovcj52b441acs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
