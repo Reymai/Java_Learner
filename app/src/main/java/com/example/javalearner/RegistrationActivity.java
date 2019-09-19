@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.regex.Pattern;
 
@@ -52,17 +54,19 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final int MINPASSWORDLENGHT = 6;
-                final int MAXPASSWORDLENGHT = 32;
+                final byte MIN_PASSWORD_LENGTH = 6;
+                final byte MAX_PASSWORD_LENGTH = 32;
 
                 String email = mEmailEdit.getText().toString();
+                String username = mUsernameEdit.getText().toString();
                 String password = mPasswordEdit.getText().toString();
                 String repeatPassword = mRepeatPasswordEdit.getText().toString();
 
-                boolean passwordToShort = password.length() <= MINPASSWORDLENGHT;
-                boolean passwordToLong  = password.length() >= MAXPASSWORDLENGHT;
+                boolean InvalidEmailPatterns = !Patterns.EMAIL_ADDRESS.matcher(email).matches();
+                boolean passwordToShort = password.length() <= MIN_PASSWORD_LENGTH;
+                boolean passwordToLong  = password.length() >= MAX_PASSWORD_LENGTH;
 
-                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                if(InvalidEmailPatterns){
                     mEmailEdit.setFocusable(true);
                     mEmailEdit.setError("Invalid email address");
                 } else if(passwordToShort || passwordToLong){
@@ -72,7 +76,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     mRepeatPasswordEdit.setFocusable(true);
                     mRepeatPasswordEdit.setError("Passwords don't match");
                 } else{
-                    registerUser(email, password);
+                    registerUser(email, password, username);
                 }
             }
         });
@@ -84,15 +88,15 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String email, String password) {
+    private void registerUser(final String email, String password, final String username) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(RegistrationActivity.this, "Authentication success", Toast.LENGTH_SHORT).show();
+                            setUsername(username);
                         } else {
                             // If sign in fails
                             Toast.makeText(RegistrationActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
@@ -105,5 +109,28 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(RegistrationActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setUsername(final String username) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(username)
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.println(Log.INFO,username,"Username is changed");
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String name = user.getDisplayName();
+
+                            Toast.makeText(RegistrationActivity.this, "Welcome, " + name, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +53,13 @@ public class LoginActivity extends AppCompatActivity {
                 boolean passwordIsEmpty = password.isEmpty();
                 boolean InvalidEmailPatterns = !Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
-                if(InvalidEmailPatterns){
+                if (InvalidEmailPatterns) {
                     mEmailEdit.setFocusable(true);
                     mEmailEdit.setError("Invalid email address");
-                } else if(passwordIsEmpty){
+                } else if (passwordIsEmpty) {
                     mPasswordEdit.setFocusable(true);
                     mPasswordEdit.setError("Can't be empty");
-                } else{
+                } else {
                     loginUser(email, password);
                 }
 
@@ -92,17 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        Toast.makeText(LoginActivity.this, "Authentication Success.", Toast.LENGTH_SHORT).show();
-        //TODO Going to the next activity
     }
 }
