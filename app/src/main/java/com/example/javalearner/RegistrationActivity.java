@@ -63,8 +63,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 String repeatPassword = mRepeatPasswordEdit.getText().toString();
 
                 boolean InvalidEmailPatterns = !Patterns.EMAIL_ADDRESS.matcher(email).matches();
-                boolean passwordToShort = password.length() <= MIN_PASSWORD_LENGTH;
-                boolean passwordToLong  = password.length() >= MAX_PASSWORD_LENGTH;
+                boolean passwordToShort = password.length() < MIN_PASSWORD_LENGTH;
+                boolean passwordToLong  = password.length() > MAX_PASSWORD_LENGTH;
 
                 if(InvalidEmailPatterns){
                     mEmailEdit.setFocusable(true);
