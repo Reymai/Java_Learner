@@ -65,6 +65,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 boolean InvalidEmailPatterns = !Patterns.EMAIL_ADDRESS.matcher(email).matches();
                 boolean passwordToShort = password.length() < MIN_PASSWORD_LENGTH;
                 boolean passwordToLong  = password.length() > MAX_PASSWORD_LENGTH;
+                boolean usernameContainsPidor = username.contains("pidor");
+                boolean emailContainsPidor = email.contains("pidor");
 
                 if(InvalidEmailPatterns){
                     mEmailEdit.setFocusable(true);
@@ -75,7 +77,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 } else if(!password.equals(repeatPassword)){
                     mRepeatPasswordEdit.setFocusable(true);
                     mRepeatPasswordEdit.setError("Passwords don't match");
-                } else{
+                } else if(usernameContainsPidor){
+                  mUsernameEdit.setFocusable(true);
+                  mUsernameEdit.setError("Sam Pidor!");
+                } else if(emailContainsPidor){
+                  mUsernameEdit.setFocusable(true);
+                  mUsernameEdit.setError("Sam Pidor!");
+                } else {
                     registerUser(email, password, username);
                 }
             }
