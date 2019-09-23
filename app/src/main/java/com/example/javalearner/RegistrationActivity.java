@@ -82,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity {
                   mUsernameEdit.setError("Sam Pidor!");
                 } else if(emailContainsPidor){
                   mUsernameEdit.setFocusable(true);
-                  mUsernameEdit.setError("Sam Pidor!");
+                  mEmailEdit.setError("Sam Pidor!");
                 } else {
                     registerUser(email, password, username);
                 }
