@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText mEmailEdit;
     EditText mPasswordEdit;
     TextView mRegistrationTxtView;
+    TextView mForgotPasswordTxtView;
 
     private FirebaseAuth mAuth;
 
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailEdit = findViewById(R.id.emailEdit);
         mPasswordEdit = findViewById(R.id.passwordEdit);
         mRegistrationTxtView = findViewById(R.id.registraionTxtView);
+        mForgotPasswordTxtView = findViewById(R.id.forgotPasswordTxtView);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -69,6 +71,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
+            }
+        });
+        mForgotPasswordTxtView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgottenPasswordActivity.class));
             }
         });
     }

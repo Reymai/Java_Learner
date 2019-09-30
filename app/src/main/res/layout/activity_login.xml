@@ -51,6 +51,19 @@
         app:layout_constraintVertical_bias="0.063"
         android:autofillHints="" />
 
+    <TextView
+        android:id="@+id/forgotPasswordTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Forgot the password?"
+        app:layout_constraintBottom_toTopOf="@+id/loginBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.36"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEdit"
+        app:layout_constraintVertical_bias="0.115" />
+
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="wrap_content"

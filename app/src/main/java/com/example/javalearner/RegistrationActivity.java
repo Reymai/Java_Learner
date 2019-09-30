@@ -21,8 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-import java.util.regex.Pattern;
-
 public class RegistrationActivity extends AppCompatActivity {
 
     Button mRegistrationBtn;
@@ -99,12 +97,33 @@ public class RegistrationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success
                             Toast.makeText(RegistrationActivity.this, "Authentication success", Toast.LENGTH_SHORT).show();
+                            verificationEmail();
                             setUsername(username);
                         } else {
                             // If sign in fails
                             Toast.makeText(RegistrationActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
                         //TODO Going to the next activity
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(RegistrationActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void verificationEmail() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(RegistrationActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
