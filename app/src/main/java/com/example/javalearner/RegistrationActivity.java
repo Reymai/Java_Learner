@@ -53,7 +53,6 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final byte MIN_PASSWORD_LENGTH = 6;
-                final byte MAX_PASSWORD_LENGTH = 32;
 
                 String email = mEmailEdit.getText().toString();
                 String username = mUsernameEdit.getText().toString();
@@ -62,12 +61,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 boolean InvalidEmailPatterns = !Patterns.EMAIL_ADDRESS.matcher(email).matches();
                 boolean passwordToShort = password.length() < MIN_PASSWORD_LENGTH;
-                boolean passwordToLong  = password.length() > MAX_PASSWORD_LENGTH;
 
                 if(InvalidEmailPatterns){
                     mEmailEdit.setFocusable(true);
                     mEmailEdit.setError("Invalid email address");
-                } else if(passwordToShort || passwordToLong){
+                } else if(passwordToShort){
                     mPasswordEdit.setFocusable(true);
                     mPasswordEdit.setError("Passwords length at least 6 and almost 32 characters");
                 } else if(!password.equals(repeatPassword)){
