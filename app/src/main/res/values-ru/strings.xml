@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Java Learner</string>
+    <string name="login">Авторизация</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="forgot_the_password">Забыли пароль?</string>
+    <string name="e_mail">Электронная почта</string>
+    <string name="username">Имя пользователя</string>
+    <string name="Registration_to_login_string">Уже есть аккаунт? Авторизируйтесь здесь!</string>
+    <string name="Login_to_registration_string">Нет аккаунта? Зарегистрируйся здесь!</string>
+</resources>

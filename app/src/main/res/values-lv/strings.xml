@@ -7,6 +7,6 @@
     <string name="forgot_the_password">Vai esat aizmirsis paroli?</string>
     <string name="e_mail">E-pasts</string>
     <string name="username">Lietotājvārds</string>
-    <string name="Registration_to_login_string">Vai jums jau ir konts? Pieteikties šeit</string>
+    <string name="Registration_to_login_string">Vai jums jau ir konts? Pieteikties šeit!</string>
     <string name="Login_to_registration_string">Vai jums nav konta? Reģistrējieties šeit!</string>
 </resources>
