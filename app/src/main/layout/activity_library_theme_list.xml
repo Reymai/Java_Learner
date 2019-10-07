@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LibraryThemeListActivity">
+
+    <ImageView
+        android:id="@+id/LibBG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/LibThemeInfo" />
+
+    <ImageButton
+        android:id="@+id/BackButton"
+        android:layout_width="80"
+        android:layout_height="50"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/LibBG"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/LibBG"
+        app:layout_constraintTop_toTopOf="@+id/LibBG"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ButonBack" />
+
+    <TextView
+        android:id="@+id/Librarry"
+        android:layout_width="272dp"
+        android:layout_height="45dp"
+        android:text="Librarry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/LibBG"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="@+id/LibBG"
+        app:layout_constraintTop_toTopOf="@+id/LibBG"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <TextView
+        android:id="@+id/ThemeList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Themes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/LibBG"
+        app:layout_constraintStart_toStartOf="@+id/LibBG"
+        app:layout_constraintTop_toTopOf="@+id/LibBG"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="373dp"
+        android:layout_height="585dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintStart_toStartOf="@+id/LibBG"
+        app:layout_constraintTop_toTopOf="@+id/LibBG"
+        app:layout_constraintVertical_bias="0.794" />
+</androidx.constraintlayout.widget.ConstraintLayout>
