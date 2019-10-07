@@ -7,9 +7,9 @@
     tools:context=".CodingActivity">
 
     <ImageButton
-        android:id="@+id/RunButton"
-        android:layout_width="120"
-        android:layout_height="80"
+        android:id="@+id/RunBtn"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,9 +21,9 @@
         app:srcCompat="@drawable/codingrun" />
 
     <ImageButton
-        android:id="@+id/BackButton"
-        android:layout_width="120"
-        android:layout_height="80"
+        android:id="@+id/BackBtn"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,21 +35,21 @@
         app:srcCompat="@drawable/codingbb" />
 
     <ImageButton
-        android:id="@+id/QuestButton"
-        android:layout_width="120"
-        android:layout_height="80"
+        android:id="@+id/QuestBtn"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/BackButton"
-        app:layout_constraintStart_toEndOf="@+id/RunButton"
+        app:layout_constraintEnd_toStartOf="@+id/BackBtn"
+        app:layout_constraintStart_toEndOf="@+id/RunBtn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975"
         app:srcCompat="@drawable/codingquset" />
 
     <ImageView
-        android:id="@+id/CodingBG"
-        android:layout_width="405"
+        android:id="@+id/CodingBGImg"
+        android:layout_width="405dp"
         android:layout_height="550dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,21 +63,21 @@
         android:id="@+id/recyclerView2"
         android:layout_width="390dp"
         android:layout_height="525dp"
-        app:layout_constraintBottom_toBottomOf="@+id/CodingBG"
+        app:layout_constraintBottom_toBottomOf="@+id/CodingBGImg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/CodingBG"
-        app:layout_constraintTop_toTopOf="@+id/CodingBG" />
+        app:layout_constraintStart_toStartOf="@+id/CodingBGImg"
+        app:layout_constraintTop_toTopOf="@+id/CodingBGImg" />
 
     <ImageView
-        android:id="@+id/AccesBg"
-        android:layout_width="380"
-        android:layout_height="65"
+        android:id="@+id/AccessBgImg"
+        android:layout_width="380dp"
+        android:layout_height="65dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/CodingBG"
+        app:layout_constraintTop_toTopOf="@+id/CodingBGImg"
         app:layout_constraintVertical_bias="0.851"
         app:srcCompat="@drawable/fastacces" />
 
@@ -85,9 +85,9 @@
         android:layout_width="367dp"
         android:layout_height="51dp"
         android:scrollbars="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/AccesBg"
-        app:layout_constraintEnd_toEndOf="@+id/AccesBg"
-        app:layout_constraintStart_toStartOf="@+id/AccesBg"
-        app:layout_constraintTop_toTopOf="@+id/AccesBg" />
+        app:layout_constraintBottom_toBottomOf="@+id/AccessBgImg"
+        app:layout_constraintEnd_toEndOf="@+id/AccessBgImg"
+        app:layout_constraintStart_toStartOf="@+id/AccessBgImg"
+        app:layout_constraintTop_toTopOf="@+id/AccessBgImg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

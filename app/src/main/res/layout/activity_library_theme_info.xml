@@ -7,7 +7,7 @@
     tools:context=".LibraryThemeInfoActivity">
 
     <ImageView
-        android:id="@+id/ThemeInfoBG"
+        android:id="@+id/ThemeInfoBGImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,15 +18,15 @@
 
     <ImageButton
         android:id="@+id/BackButton"
-        android:layout_width="80"
-        android:layout_height="50"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/ThemeInfoBG"
-        app:layout_constraintEnd_toEndOf="@+id/ThemeInfoBG"
+        app:layout_constraintBottom_toBottomOf="@+id/ThemeInfoBGImg"
+        app:layout_constraintEnd_toEndOf="@+id/ThemeInfoBGImg"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/ThemeInfoBG"
-        app:layout_constraintTop_toTopOf="@+id/ThemeInfoBG"
+        app:layout_constraintStart_toStartOf="@+id/ThemeInfoBGImg"
+        app:layout_constraintTop_toTopOf="@+id/ThemeInfoBGImg"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/butonback" />
 
@@ -34,34 +34,34 @@
         android:id="@+id/recyclerView"
         android:layout_width="381dp"
         android:layout_height="587dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ThemeInfoBG"
-        app:layout_constraintEnd_toEndOf="@+id/ThemeInfoBG"
+        app:layout_constraintBottom_toBottomOf="@+id/ThemeInfoBGImg"
+        app:layout_constraintEnd_toEndOf="@+id/ThemeInfoBGImg"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ThemeInfoBG"
+        app:layout_constraintTop_toTopOf="@+id/ThemeInfoBGImg"
         app:layout_constraintVertical_bias="0.75" />
 
     <TextView
-        android:id="@+id/Library"
+        android:id="@+id/LibraryTxt"
         android:layout_width="222dp"
         android:layout_height="47dp"
         android:text="Library"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.074"
-        app:layout_constraintStart_toStartOf="@+id/ThemeInfoBG"
-        app:layout_constraintTop_toTopOf="@+id/ThemeInfoBG"
+        app:layout_constraintStart_toStartOf="@+id/ThemeInfoBGImg"
+        app:layout_constraintTop_toTopOf="@+id/ThemeInfoBGImg"
         app:layout_constraintVertical_bias="0.023" />
 
     <TextView
-        android:id="@+id/ThemeText"
+        android:id="@+id/ThemeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Theme"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ThemeInfoBG"
+        app:layout_constraintEnd_toEndOf="@+id/ThemeInfoBGImg"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/ThemeInfoBG"
-        app:layout_constraintTop_toTopOf="@+id/ThemeInfoBG"
+        app:layout_constraintStart_toStartOf="@+id/ThemeInfoBGImg"
+        app:layout_constraintTop_toTopOf="@+id/ThemeInfoBGImg"
         app:layout_constraintVertical_bias="0.113" />
 </androidx.constraintlayout.widget.ConstraintLayout>

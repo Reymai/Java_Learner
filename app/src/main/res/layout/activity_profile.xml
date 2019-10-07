@@ -7,7 +7,7 @@
     tools:context=".ProfileActivity">
 
     <ImageView
-        android:id="@+id/ProfilePic"
+        android:id="@+id/ProfileImg"
         android:layout_width="410dp"
         android:layout_height="270dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,50 +19,50 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/Username"
+        android:id="@+id/UsernameTxt"
         android:layout_width="241dp"
         android:layout_height="59dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/ProfilePic"
-        app:layout_constraintEnd_toEndOf="@+id/ProfilePic"
+        app:layout_constraintBottom_toBottomOf="@+id/ProfileImg"
+        app:layout_constraintEnd_toEndOf="@+id/ProfileImg"
         app:layout_constraintHorizontal_bias="0.094"
-        app:layout_constraintStart_toStartOf="@+id/ProfilePic"
-        app:layout_constraintTop_toTopOf="@+id/ProfilePic"
+        app:layout_constraintStart_toStartOf="@+id/ProfileImg"
+        app:layout_constraintTop_toTopOf="@+id/ProfileImg"
         app:layout_constraintVertical_bias="0.915" />
 
     <ImageView
-        android:id="@+id/ProfileListBg"
-        android:layout_width="380"
-        android:layout_height="450"
+        android:id="@+id/ProfileListBgImg"
+        android:layout_width="380dp"
+        android:layout_height="450dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ProfilePic"
+        app:layout_constraintTop_toTopOf="@+id/ProfileImg"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/profile_list" />
 
     <ImageButton
-        android:id="@+id/BackButton"
-        android:layout_width="80"
-        android:layout_height="50"
+        android:id="@+id/BackBtn"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/ProfilePic"
-        app:layout_constraintEnd_toEndOf="@+id/ProfilePic"
+        app:layout_constraintBottom_toBottomOf="@+id/ProfileImg"
+        app:layout_constraintEnd_toEndOf="@+id/ProfileImg"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/ProfilePic"
-        app:layout_constraintTop_toTopOf="@+id/ProfilePic"
+        app:layout_constraintStart_toStartOf="@+id/ProfileImg"
+        app:layout_constraintTop_toTopOf="@+id/ProfileImg"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/butonback" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="356dp"
         android:layout_height="396dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ProfileListBg"
-        app:layout_constraintEnd_toEndOf="@+id/ProfileListBg"
-        app:layout_constraintStart_toStartOf="@+id/ProfileListBg"
-        app:layout_constraintTop_toTopOf="@+id/ProfileListBg" />
+        app:layout_constraintBottom_toBottomOf="@+id/ProfileListBgImg"
+        app:layout_constraintEnd_toEndOf="@+id/ProfileListBgImg"
+        app:layout_constraintStart_toStartOf="@+id/ProfileListBgImg"
+        app:layout_constraintTop_toTopOf="@+id/ProfileListBgImg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

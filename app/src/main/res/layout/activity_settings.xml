@@ -8,7 +8,7 @@
     tools:context=".SettingsActivity">
 
     <ImageView
-        android:id="@+id/SettingsImmage"
+        android:id="@+id/SettingsImg"
         android:layout_width="394dp"
         android:layout_height="445dp"
         android:scaleType="fitXY"
@@ -25,23 +25,23 @@
         android:layout_width="177dp"
         android:layout_height="47dp"
         android:text="Language"
-        app:layout_constraintBottom_toBottomOf="@+id/SettingsImmage"
-        app:layout_constraintEnd_toEndOf="@+id/SettingsImmage"
+        app:layout_constraintBottom_toBottomOf="@+id/SettingsImg"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsImg"
         app:layout_constraintHorizontal_bias="0.165"
-        app:layout_constraintStart_toStartOf="@+id/SettingsImmage"
-        app:layout_constraintTop_toTopOf="@+id/SettingsImmage"
+        app:layout_constraintStart_toStartOf="@+id/SettingsImg"
+        app:layout_constraintTop_toTopOf="@+id/SettingsImg"
         app:layout_constraintVertical_bias="0.341" />
 
     <TextView
         android:id="@+id/Sound"
-        android:layout_width="177"
-        android:layout_height="43"
+        android:layout_width="177dp"
+        android:layout_height="43dp"
         android:text="Sound"
-        app:layout_constraintBottom_toBottomOf="@+id/SettingsImmage"
-        app:layout_constraintEnd_toEndOf="@+id/SettingsImmage"
+        app:layout_constraintBottom_toBottomOf="@+id/SettingsImg"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsImg"
         app:layout_constraintHorizontal_bias="0.165"
-        app:layout_constraintStart_toStartOf="@+id/SettingsImmage"
-        app:layout_constraintTop_toTopOf="@+id/SettingsImmage"
+        app:layout_constraintStart_toStartOf="@+id/SettingsImg"
+        app:layout_constraintTop_toTopOf="@+id/SettingsImg"
         app:layout_constraintVertical_bias="0.559" />
 
     <ImageButton
@@ -52,11 +52,11 @@
         android:layout_marginEnd="43dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/SettingsImmage"
-        app:layout_constraintEnd_toEndOf="@+id/SettingsImmage"
+        app:layout_constraintBottom_toBottomOf="@+id/SettingsImg"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsImg"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/SettingsImmage"
-        app:layout_constraintTop_toTopOf="@+id/SettingsImmage"
+        app:layout_constraintStart_toStartOf="@+id/SettingsImg"
+        app:layout_constraintTop_toTopOf="@+id/SettingsImg"
         app:layout_constraintVertical_bias="0.311"
         app:srcCompat="@drawable/lv" />
 
@@ -65,23 +65,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Switch"
-        app:layout_constraintBottom_toBottomOf="@+id/SettingsImmage"
-        app:layout_constraintEnd_toEndOf="@+id/SettingsImmage"
+        app:layout_constraintBottom_toBottomOf="@+id/SettingsImg"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsImg"
         app:layout_constraintHorizontal_bias="0.791"
-        app:layout_constraintStart_toStartOf="@+id/SettingsImmage"
-        app:layout_constraintTop_toTopOf="@+id/SettingsImmage"
+        app:layout_constraintStart_toStartOf="@+id/SettingsImg"
+        app:layout_constraintTop_toTopOf="@+id/SettingsImg"
         app:layout_constraintVertical_bias="0.555" />
 
     <ImageButton
         android:id="@+id/Exit"
-        android:layout_width="125"
-        android:layout_height="120"
+        android:layout_width="125dp"
+        android:layout_height="120dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/SettingsImmage"
-        app:layout_constraintEnd_toEndOf="@+id/SettingsImmage"
-        app:layout_constraintStart_toStartOf="@+id/SettingsImmage"
-        app:layout_constraintTop_toTopOf="@+id/SettingsImmage"
+        app:layout_constraintBottom_toBottomOf="@+id/SettingsImg"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsImg"
+        app:layout_constraintStart_toStartOf="@+id/SettingsImg"
+        app:layout_constraintTop_toTopOf="@+id/SettingsImg"
         app:layout_constraintVertical_bias="0.898"
         app:srcCompat="@drawable/exitbutton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

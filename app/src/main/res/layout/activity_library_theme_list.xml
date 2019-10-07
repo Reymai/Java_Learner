@@ -7,7 +7,7 @@
     tools:context=".LibraryThemeListActivity">
 
     <ImageView
-        android:id="@+id/LibBG"
+        android:id="@+id/LibBGImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,15 +20,15 @@
 
     <ImageButton
         android:id="@+id/BackButton"
-        android:layout_width="80"
-        android:layout_height="50"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/LibBG"
+        app:layout_constraintBottom_toBottomOf="@+id/LibBGImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/LibBG"
-        app:layout_constraintTop_toTopOf="@+id/LibBG"
+        app:layout_constraintStart_toStartOf="@+id/LibBGImg"
+        app:layout_constraintTop_toTopOf="@+id/LibBGImg"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/butonback" />
 
@@ -38,10 +38,10 @@
         android:layout_height="45dp"
         android:text="Librarry"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/LibBG"
+        app:layout_constraintEnd_toEndOf="@+id/LibBGImg"
         app:layout_constraintHorizontal_bias="0.115"
-        app:layout_constraintStart_toStartOf="@+id/LibBG"
-        app:layout_constraintTop_toTopOf="@+id/LibBG"
+        app:layout_constraintStart_toStartOf="@+id/LibBGImg"
+        app:layout_constraintTop_toTopOf="@+id/LibBGImg"
         app:layout_constraintVertical_bias="0.023" />
 
     <TextView
@@ -50,9 +50,9 @@
         android:layout_height="wrap_content"
         android:text="Themes"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/LibBG"
-        app:layout_constraintStart_toStartOf="@+id/LibBG"
-        app:layout_constraintTop_toTopOf="@+id/LibBG"
+        app:layout_constraintEnd_toEndOf="@+id/LibBGImg"
+        app:layout_constraintStart_toStartOf="@+id/LibBGImg"
+        app:layout_constraintTop_toTopOf="@+id/LibBGImg"
         app:layout_constraintVertical_bias="0.113" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -61,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.421"
-        app:layout_constraintStart_toStartOf="@+id/LibBG"
-        app:layout_constraintTop_toTopOf="@+id/LibBG"
+        app:layout_constraintStart_toStartOf="@+id/LibBGImg"
+        app:layout_constraintTop_toTopOf="@+id/LibBGImg"
         app:layout_constraintVertical_bias="0.794" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,9 +7,9 @@
     tools:context=".MainMenuActivity">
 
     <ImageButton
-        android:id="@+id/ProfileButton"
-        android:layout_width="110"
-        android:layout_height="105"
+        android:id="@+id/ProfileBtn"
+        android:layout_width="110dp"
+        android:layout_height="105dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,9 +21,9 @@
         app:srcCompat="@drawable/profile_button" />
 
     <ImageButton
-        android:id="@+id/LibraryButton"
-        android:layout_width="110"
-        android:layout_height="105"
+        android:id="@+id/LibraryBtn"
+        android:layout_width="110dp"
+        android:layout_height="105dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,9 +35,9 @@
         app:srcCompat="@drawable/lib_button" />
 
     <ImageButton
-        android:id="@+id/SettingsButton"
-        android:layout_width="110"
-        android:layout_height="105"
+        android:id="@+id/SettingsBtn"
+        android:layout_width="110dp"
+        android:layout_height="105dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="96dp"
         android:backgroundTint="#00FFFFFF"
@@ -51,7 +51,7 @@
         app:srcCompat="@drawable/settings_button" />
 
     <ImageView
-        android:id="@+id/ProfileImage"
+        android:id="@+id/ProfileImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,9 +63,9 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
-        android:id="@+id/LogoutButton"
-        android:layout_width="65"
-        android:layout_height="65"
+        android:id="@+id/LogoutBtn"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -77,10 +77,10 @@
         app:srcCompat="@drawable/logout" />
 
     <TabHost
-        android:id="@+id/tabHost2"
-        android:layout_width="390"
+        android:id="@+id/TaskTab"
+        android:layout_width="390dp"
         android:layout_height="456dp"
-        app:layout_constraintBottom_toBottomOf="@+id/LibraryButton"
+        app:layout_constraintBottom_toBottomOf="@+id/LibraryBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -104,21 +104,19 @@
                 android:foregroundTint="#00FFFFFF">
 
                 <LinearLayout
-                    android:id="@+id/tab1"
+                    android:id="@+id/Available"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical" />
 
                 <LinearLayout
-                    android:id="@+id/tab2"
+                    android:id="@+id/SelectedTask"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
+                    android:orientation="vertical"/>
 
                 <LinearLayout
-                    android:id="@+id/tab3"
+                    android:id="@+id/Completed"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -132,8 +130,8 @@
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="187dp"
-        android:layout_height="60"
-        app:layout_constraintBottom_toBottomOf="@+id/LibraryButton"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/LibraryBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
@@ -145,19 +143,19 @@
         android:layout_width="183dp"
         android:layout_height="49dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/LibraryButton"
-        app:layout_constraintEnd_toEndOf="@+id/tabHost2"
+        app:layout_constraintBottom_toBottomOf="@+id/LibraryBtn"
+        app:layout_constraintEnd_toEndOf="@+id/TaskTab"
         app:layout_constraintHorizontal_bias="0.688"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
     <ImageView
-        android:id="@+id/Lvl"
+        android:id="@+id/LvlImg"
         android:layout_width="57dp"
-        android:layout_height="60"
+        android:layout_height="60dp"
         android:backgroundTint="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/LibraryButton"
+        app:layout_constraintBottom_toBottomOf="@+id/LibraryBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.443"
         app:layout_constraintStart_toStartOf="parent"
@@ -166,14 +164,14 @@
         app:srcCompat="@drawable/lvl_panel" />
 
     <TextView
-        android:id="@+id/LVLText"
+        android:id="@+id/LVLTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
-        app:layout_constraintBottom_toBottomOf="@+id/Lvl"
-        app:layout_constraintEnd_toEndOf="@+id/Lvl"
-        app:layout_constraintStart_toStartOf="@+id/Lvl"
-        app:layout_constraintTop_toTopOf="@+id/Lvl"
+        app:layout_constraintBottom_toBottomOf="@+id/LvlImg"
+        app:layout_constraintEnd_toEndOf="@+id/LvlImg"
+        app:layout_constraintStart_toStartOf="@+id/LvlImg"
+        app:layout_constraintTop_toTopOf="@+id/LvlImg"
         app:layout_constraintVertical_bias="0.512" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
