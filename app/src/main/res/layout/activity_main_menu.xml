@@ -137,15 +137,15 @@
 
     <TextView
         android:id="@+id/Username"
-        android:layout_width="183dp"
-        android:layout_height="49dp"
-        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Username"
+        android:text="Test Testovich Tesov"
         app:layout_constraintBottom_toBottomOf="@+id/LibraryBtn"
-        app:layout_constraintEnd_toEndOf="@+id/TaskTab"
-        app:layout_constraintHorizontal_bias="0.688"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/LogoutBtn"
+        app:layout_constraintStart_toEndOf="@+id/ProfileImg"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.027" />
 
     <ImageView
         android:id="@+id/LvlImg"
