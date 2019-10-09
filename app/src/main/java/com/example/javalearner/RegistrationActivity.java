@@ -93,15 +93,13 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success
-                            Toast.makeText(RegistrationActivity.this, "Authentication success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
                             verificationEmail();
                             setUsername(username);
+                            startActivity(new Intent(RegistrationActivity.this, MainMenuActivity.class));
                         } else {
-                            // If sign in fails
-                            Toast.makeText(RegistrationActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
                         }
-                        //TODO Going to the next activity
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
