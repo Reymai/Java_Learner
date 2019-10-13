@@ -9,85 +9,71 @@
     <ImageButton
         android:id="@+id/RunBtn"
         android:layout_width="120dp"
-        android:layout_height="80dp"
+        android:layout_height="0dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintEnd_toStartOf="@+id/QuestBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView3"
         app:layout_constraintVertical_bias="0.975"
         app:srcCompat="@drawable/codingrun" />
 
     <ImageButton
         android:id="@+id/BackBtn"
         android:layout_width="120dp"
-        android:layout_height="80dp"
+        android:layout_height="0dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/QuestBtn"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView3"
         app:layout_constraintVertical_bias="0.975"
         app:srcCompat="@drawable/codingbb" />
 
     <ImageButton
         android:id="@+id/QuestBtn"
         android:layout_width="120dp"
-        android:layout_height="80dp"
+        android:layout_height="0dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/BackBtn"
-        app:layout_constraintStart_toEndOf="@+id/RunBtn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975"
-        app:srcCompat="@drawable/codingquset" />
-
-    <ImageView
-        android:id="@+id/CodingBGImg"
-        android:layout_width="405dp"
-        android:layout_height="550dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.011"
-        app:srcCompat="@drawable/codinglog" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView3"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/codingquset" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
-        android:layout_width="390dp"
-        android:layout_height="525dp"
-        app:layout_constraintBottom_toBottomOf="@+id/CodingBGImg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/list"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/CodingBGImg"
-        app:layout_constraintTop_toTopOf="@+id/CodingBGImg" />
-
-    <ImageView
-        android:id="@+id/AccessBgImg"
-        android:layout_width="380dp"
-        android:layout_height="65dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/CodingBGImg"
-        app:layout_constraintVertical_bias="0.851"
-        app:srcCompat="@drawable/fastacces" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="367dp"
+        android:id="@+id/recyclerView3"
+        android:layout_width="0dp"
         android:layout_height="51dp"
+        android:background="@drawable/fastacces"
+        android:paddingLeft="10dp"
         android:scrollbars="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/AccessBgImg"
-        app:layout_constraintEnd_toEndOf="@+id/AccessBgImg"
-        app:layout_constraintStart_toStartOf="@+id/AccessBgImg"
-        app:layout_constraintTop_toTopOf="@+id/AccessBgImg" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

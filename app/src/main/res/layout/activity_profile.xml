@@ -8,61 +8,55 @@
 
     <ImageView
         android:id="@+id/ProfileImg"
-        android:layout_width="410dp"
-        android:layout_height="270dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/UsernameTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/UsernameTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/UsernameTxt"
-        android:layout_width="241dp"
-        android:layout_height="59dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/ProfileImg"
-        app:layout_constraintEnd_toEndOf="@+id/ProfileImg"
-        app:layout_constraintHorizontal_bias="0.094"
-        app:layout_constraintStart_toStartOf="@+id/ProfileImg"
-        app:layout_constraintTop_toTopOf="@+id/ProfileImg"
-        app:layout_constraintVertical_bias="0.915" />
-
-    <ImageView
-        android:id="@+id/ProfileListBgImg"
-        android:layout_width="380dp"
-        android:layout_height="450dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ProfileImg"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/profile_list" />
+        app:layout_constraintVertical_bias="0.341" />
 
     <ImageButton
         android:id="@+id/BackBtn"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:backgroundTint="#00FFFFFF"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/ProfileImg"
-        app:layout_constraintEnd_toEndOf="@+id/ProfileImg"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/ProfileImg"
-        app:layout_constraintTop_toTopOf="@+id/ProfileImg"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/butonback" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="356dp"
-        android:layout_height="396dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ProfileListBgImg"
-        app:layout_constraintEnd_toEndOf="@+id/ProfileListBgImg"
-        app:layout_constraintStart_toStartOf="@+id/ProfileListBgImg"
-        app:layout_constraintTop_toTopOf="@+id/ProfileListBgImg" />
+        android:id="@+id/recyclerView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/list"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UsernameTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -126,26 +126,27 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="187dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
         app:layout_constraintBottom_toBottomOf="@+id/LibraryBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/LvlImg"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.123" />
 
     <TextView
         android:id="@+id/Username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
         android:contentDescription="Username"
         android:text="Test Testovich Tesov"
         app:layout_constraintBottom_toBottomOf="@+id/LibraryBtn"
         app:layout_constraintEnd_toStartOf="@+id/LogoutBtn"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toEndOf="@+id/ProfileImg"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.027" />
+        app:layout_constraintVertical_bias="0.014" />
 
     <ImageView
         android:id="@+id/LvlImg"
@@ -154,8 +155,8 @@
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/LibraryBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.443"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintStart_toEndOf="@+id/ProfileImg"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.123"
         app:srcCompat="@drawable/lvl_panel" />

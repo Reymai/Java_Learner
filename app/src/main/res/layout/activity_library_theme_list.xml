@@ -4,45 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/lib_theme_menu"
     tools:context=".LibraryThemeListActivity">
-
-    <ImageView
-        android:id="@+id/LibBGImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/lib_theme_info" />
 
     <ImageButton
         android:id="@+id/BackButton"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:backgroundTint="#00FFFFFF"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/LibBGImg"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/ThemeList"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/LibBGImg"
-        app:layout_constraintTop_toTopOf="@+id/LibBGImg"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/Librarry"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/butonback" />
 
     <TextView
         android:id="@+id/Librarry"
-        android:layout_width="272dp"
-        android:layout_height="45dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="90dp"
         android:text="Librarry"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/LibBGImg"
-        app:layout_constraintHorizontal_bias="0.115"
-        app:layout_constraintStart_toStartOf="@+id/LibBGImg"
-        app:layout_constraintTop_toTopOf="@+id/LibBGImg"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043" />
 
     <TextView
         android:id="@+id/ThemeList"
@@ -50,18 +39,20 @@
         android:layout_height="wrap_content"
         android:text="Themes"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/LibBGImg"
-        app:layout_constraintStart_toStartOf="@+id/LibBGImg"
-        app:layout_constraintTop_toTopOf="@+id/LibBGImg"
-        app:layout_constraintVertical_bias="0.113" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.101" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="373dp"
-        android:layout_height="585dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.421"
-        app:layout_constraintStart_toStartOf="@+id/LibBGImg"
-        app:layout_constraintTop_toTopOf="@+id/LibBGImg"
-        app:layout_constraintVertical_bias="0.794" />
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ThemeList"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
