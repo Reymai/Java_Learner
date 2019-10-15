@@ -63,16 +63,17 @@ public class MainMenuActivity extends AppCompatActivity {
                         int currentProgress;
                         int progressMax = mProgressBar.getMax();
 
-                int level =Integer.parseInt((String) getResources().getText(Integer.parseInt("@string/Level")));
+//                String level = mLVLTxt.getText().toString();
+//                int levelInt = Integer.valueOf(level);
 
                 mProgressBar.setMax(100);
                         currentProgress = mProgressBar.getProgress();
                         mProgressBar.setProgress(currentProgress+progress);
-                        if(currentProgress>=progressMax){
-                            mLVLTxt.setText(level = level + 1);
-                            mProgressBar.setProgress(0);
-                            mProgressBar.setMax(progressMax * 2);
-                        }
+//                        if(currentProgress>=progressMax){
+//                            mLVLTxt.setText(levelInt = levelInt + 1);
+//                            mProgressBar.setProgress(0);
+//                            mProgressBar.setMax(progressMax * 2);
+//                        }
             }
         });
 
