@@ -9,4 +9,5 @@
     <string name="username">Username</string>
     <string name="Registration_to_login_string">Already have an account? Login here!</string>
     <string name="Login_to_registration_string">Don\'t have an account? Sign-up here!</string>
+    <string name="Level">1</string>
 </resources>
