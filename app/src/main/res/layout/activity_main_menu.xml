@@ -165,7 +165,7 @@
         android:id="@+id/LVLTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1"
+        android:text="@string/Level"
         app:layout_constraintBottom_toBottomOf="@+id/LvlImg"
         app:layout_constraintEnd_toEndOf="@+id/LvlImg"
         app:layout_constraintStart_toStartOf="@+id/LvlImg"

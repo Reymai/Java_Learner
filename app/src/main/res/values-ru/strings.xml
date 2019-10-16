@@ -9,4 +9,6 @@
     <string name="username">Имя пользователя</string>
     <string name="Registration_to_login_string">Уже есть аккаунт? Авторизируйтесь здесь!</string>
     <string name="Login_to_registration_string">Нет аккаунта? Зарегистрируйся здесь!</string>
+    <string name="language">Язык</string>
+    <string name="sound">Звук</string>
 </resources>
