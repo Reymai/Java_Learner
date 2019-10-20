@@ -2,12 +2,15 @@ package com.example.javalearner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,19 +18,27 @@ import android.widget.Toast;
 import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 public class MainMenuActivity extends AppCompatActivity {
 
     ImageButton mLogoutBtn;
+    ImageButton mSettingsBtn;
+    ImageButton mLibraryBtn;
+    ImageButton mProfileBtn;
     TextView mUsername;
-    ProgressBar mProgressBar;
     TextView mLVLTxt;
+    ProgressBar mProgressBar;
+    ImageView mProfileImg;
 
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+    private StorageReference mStorageRef;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +48,11 @@ public class MainMenuActivity extends AppCompatActivity {
         mUsername = findViewById(R.id.Username);
         mProgressBar = findViewById(R.id.progressBar);
         mLVLTxt = findViewById(R.id.LVLTxt);
+        mSettingsBtn = findViewById(R.id.SettingsBtn);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        mProfileImg = findViewById(R.id.ProfileImg);
+        mLibraryBtn = findViewById(R.id.LibraryBtn);
+        mProfileBtn = findViewById(R.id.ProfileBtn);
 
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +92,27 @@ public class MainMenuActivity extends AppCompatActivity {
 //                        }
             }
         });
+        mSettingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
+            }
+        });
+
+        mLibraryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainMenuActivity.this, LibraryThemeListActivity.class));
+            }
+        });
+
+        mProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainMenuActivity.this, ProfileActivity.class));
+            }
+        });
+
 
     }
 }
