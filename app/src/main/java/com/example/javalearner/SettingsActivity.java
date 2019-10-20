@@ -42,16 +42,19 @@ public class SettingsActivity extends AppCompatActivity {
                 Locale locale = Locale.getDefault();
                 String lang = locale.getLanguage();
                 switch (lang){
-                    case "ru":{
-                        locale = new Locale("en");
+                    case "ru":
+                    case "ru_RU":{
+                        locale = new Locale("en", "EN");
                         break;
                     }
-                    case "en":{
-                        locale = new Locale("lv");
+                    case "en":
+                    case "en_EN":{
+                        locale = new Locale("lv", "LV");
                         break;
                     }
-                    case "lv":{
-                        locale = new Locale("ru");
+                    case "lv":
+                    case "lv_LV":{
+                        locale = new Locale("ru", "RU");
                         break;
                     }
                 }
@@ -59,16 +62,18 @@ public class SettingsActivity extends AppCompatActivity {
                 Locale.setDefault(locale);
                 Configuration config = new Configuration();
                 config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
                 recreate();
             }
 
         });
+
+        //ToDo Sound Switch
+
         mExitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+                startActivity(new Intent(SettingsActivity.this, MainMenuActivity.class));
             }
         });
     }

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -21,14 +20,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class EmailRegistrationActivity extends AppCompatActivity {
 
     Button mRegistrationBtn;
     EditText mEmailEdit;
@@ -38,8 +35,6 @@ public class RegistrationActivity extends AppCompatActivity {
     TextView mLoginTxtView;
 
     String error  = null;
-
-    boolean successful = false;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -95,7 +90,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mLoginTxtView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                startActivity(new Intent(EmailRegistrationActivity.this, LoginActivity.class));
             }
         });
     }
@@ -107,7 +102,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                            Toast.makeText(RegistrationActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(EmailRegistrationActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
                             try {
                                 registerToDatabase(username, email);
                             } catch (Exception exception) {
@@ -117,19 +112,19 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (error == null){
                                 setUsername(username);
                                 sendVerificationEmail();
-                                startActivity(new Intent(RegistrationActivity.this, MainMenuActivity.class));
+                                startActivity(new Intent(EmailRegistrationActivity.this, MainMenuActivity.class));
                             }
                             else {
-                                Toast.makeText(RegistrationActivity.this, "Error with writing to database: " + error, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EmailRegistrationActivity.this, "Error with writing to database: " + error, Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(RegistrationActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EmailRegistrationActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegistrationActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EmailRegistrationActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -144,13 +139,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-//                        Toast.makeText(RegistrationActivity.this, "Good for db", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(EmailRegistrationActivity.this, "Good for db", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegistrationActivity.this, "Error for db: "+e, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EmailRegistrationActivity.this, "Error for db: "+e, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -164,13 +159,13 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-//                            Toast.makeText(RegistrationActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(EmailRegistrationActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegistrationActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EmailRegistrationActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -187,12 +182,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.println(Log.INFO,username,"Username is changed");
-
                             FirebaseUser user = mAuth.getCurrentUser();
                             String name = user.getDisplayName();
-
-//                            Toast.makeText(RegistrationActivity.this, "Welcome, " + name, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

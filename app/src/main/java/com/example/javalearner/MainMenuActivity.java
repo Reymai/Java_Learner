@@ -18,8 +18,8 @@ import android.widget.Toast;
 import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+//import com.google.firebase.storage.FirebaseStorage;
+//import com.google.firebase.storage.StorageReference;
 
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -36,7 +36,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
-    private StorageReference mStorageRef;
+//    private StorageReference mStorageRef;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -49,7 +49,7 @@ public class MainMenuActivity extends AppCompatActivity {
         mProgressBar = findViewById(R.id.progressBar);
         mLVLTxt = findViewById(R.id.LVLTxt);
         mSettingsBtn = findViewById(R.id.SettingsBtn);
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+//        mStorageRef = FirebaseStorage.getInstance().getReference();
         mProfileImg = findViewById(R.id.ProfileImg);
         mLibraryBtn = findViewById(R.id.LibraryBtn);
         mProfileBtn = findViewById(R.id.ProfileBtn);
