@@ -15,11 +15,18 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -29,6 +36,12 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText mPasswordEdit;
     EditText mRepeatPasswordEdit;
     TextView mLoginTxtView;
+
+    String error  = null;
+
+    boolean successful = false;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private FirebaseAuth mAuth;
     
@@ -74,7 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 } else if(username.isEmpty()){
                     mUsernameEdit.setFocusable(true);
                     mUsernameEdit.setError("Username is empty");
-                } else {
+                }else {
                     registerUser(email, password, username);
                 }
             }
@@ -88,15 +101,27 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void registerUser(final String email, String password, final String username) {
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(RegistrationActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
-                            verificationEmail();
-                            setUsername(username);
-                            startActivity(new Intent(RegistrationActivity.this, MainMenuActivity.class));
+//                            Toast.makeText(RegistrationActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
+                            try {
+                                registerToDatabase(username, email);
+                            } catch (Exception exception) {
+                                exception.printStackTrace();
+                                error = exception.toString();
+                            }
+                            if (error == null){
+                                setUsername(username);
+                                sendVerificationEmail();
+                                startActivity(new Intent(RegistrationActivity.this, MainMenuActivity.class));
+                            }
+                            else {
+                                Toast.makeText(RegistrationActivity.this, "Error with writing to database: " + error, Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(RegistrationActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
                         }
@@ -109,7 +134,28 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private void verificationEmail() {
+    private void registerToDatabase(String username, String email) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("Username", username);
+        user.put("Level", 1);
+
+        db.collection("users").document(email.toLowerCase())
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(RegistrationActivity.this, "Good for db", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(RegistrationActivity.this, "Error for db: "+e, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void sendVerificationEmail() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
 
@@ -118,7 +164,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(RegistrationActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RegistrationActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -146,7 +192,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String name = user.getDisplayName();
 
-                            Toast.makeText(RegistrationActivity.this, "Welcome, " + name, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RegistrationActivity.this, "Welcome, " + name, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
