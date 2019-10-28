@@ -132,7 +132,7 @@ public class EmailRegistrationActivity extends AppCompatActivity {
     private void registerToDatabase(String username, String email) {
         Map<String, Object> user = new HashMap<>();
         user.put("Username", username);
-        user.put("Level", 1);
+        user.put("XP", 0);
 
         db.collection("users").document(email.toLowerCase())
                 .set(user)
