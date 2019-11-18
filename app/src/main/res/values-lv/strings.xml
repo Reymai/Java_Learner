@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Java Learner</string>
     <string name="login">Pieteikšana</string>
     <string name="sign_up">Reģistrācija</string>
     <string name="repeat_password">Atkārtot paroli</string>
@@ -11,4 +10,5 @@
     <string name="Login_to_registration_string">Vai jums nav konta? Reģistrējieties šeit!</string>
     <string name="language">Valoda</string>
     <string name="sound">Skaņa</string>
+    <string name="Level" translatable="false">Limenis</string>
 </resources>

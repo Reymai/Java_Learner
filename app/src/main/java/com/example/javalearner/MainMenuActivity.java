@@ -1,30 +1,19 @@
 package com.example.javalearner;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.data.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 //import com.google.firebase.storage.FirebaseStorage;
 //import com.google.firebase.storage.StorageReference;
 
@@ -38,11 +27,13 @@ public class MainMenuActivity extends AppCompatActivity {
     TextView mUsername;
     TextView mLVLTxt;
     ProgressBar mProgressBar;
+    ProgressBar mMainMenuPB;
     ImageView mProfileImg;
-
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+
+
 //    private StorageReference mStorageRef;
 
     @SuppressLint("WrongViewCast")
@@ -60,45 +51,37 @@ public class MainMenuActivity extends AppCompatActivity {
         mProfileImg = findViewById(R.id.ProfileImg);
         mLibraryBtn = findViewById(R.id.LibraryBtn);
         mProfileBtn = findViewById(R.id.ProfileBtn);
-
-        mLogoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(MainMenuActivity.this, "You have been logout!!!", Toast.LENGTH_SHORT);
-                startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
-            }
-
-        });
-
+        mMainMenuPB = findViewById(R.id.MainMenuPB);
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user != null) {
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
             mUsername.setText(name);
+        }else{
+            signOut();
         }
-            mProgressBar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    DocumentReference docRef = db.collection("users").document(user.getEmail());
-                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            int progress = 0;
-                            mProgressBar.setMax(100);
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    progress = Integer.parseInt(document.getData().get("XP").toString());
-                                }
-                            } else {
-                                Toast.makeText(MainMenuActivity.this, "Some Error", Toast.LENGTH_SHORT);
-                            }
-                            mProgressBar.setProgress(progress);
-                        }
-                    });
 
+        //Progress
+        mMainMenuPB.setVisibility(View.VISIBLE);
+        int progress = Integer.parseInt(DatabaseHelper.DatabaseRead("users", user.getEmail(), "XP"));
+        mMainMenuPB.setVisibility(View.GONE);
+        mProgressBar.setMax(100);
+        mProgressBar.setProgress(progress);
+        Toast.makeText(MainMenuActivity.this, "Progress: "+progress, Toast.LENGTH_SHORT).show();
+
+
+
+        mLogoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+            }
+        });
+
+        mProgressBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
@@ -123,6 +106,23 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(MainMenuActivity.this, "You have been logout", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 }

@@ -8,16 +8,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:configChanges = "locale"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6687150084219522~4547612304"/>
         <activity android:name=".GoogleRegistrationActivity"></activity>
         <activity android:name=".LibraryThemeInfoActivity" />
         <activity android:name=".LibraryThemeListActivity" />
         <activity android:name=".CodingActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity
-            android:name=".MainMenuActivity"
-            android:parentActivityName=".MainMenuActivity" />
+        <activity android:name=".MainMenuActivity" />
         <activity android:name=".ForgottenPasswordActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

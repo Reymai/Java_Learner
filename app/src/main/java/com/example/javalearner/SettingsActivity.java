@@ -1,24 +1,21 @@
 package com.example.javalearner;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.ConfigurationCompat;
-
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Display;
+import android.os.LocaleList;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
-import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Locale;
-import java.util.Set;
-import java.util.Timer;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -26,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     ImageButton mLanguageSwitch;
     Switch mSoundSwitch;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,21 +32,27 @@ public class SettingsActivity extends AppCompatActivity {
         mLanguageSwitch = findViewById(R.id.LanguageImgBtn);
         mSoundSwitch = findViewById(R.id.SoundSwitch);
 
-        Toast.makeText(SettingsActivity.this, ""+Locale.getDefault(), Toast.LENGTH_SHORT).show();
+        Configuration configuration = getResources().getConfiguration();
+        String language = configuration.getLocales().toString();
+//        configuration.setLocale(Locale.forLanguageTag(language));
+
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         mLanguageSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String dbLang = DatabaseHelper.DatabaseRead("users", user.getEmail(), "Language");
                 Locale locale = Locale.getDefault();
                 String lang = locale.getLanguage();
                 switch (lang){
                     case "ru":
                     case "ru_RU":{
-                        locale = new Locale("en", "EN");
+                        locale = new Locale("en", "US");
                         break;
                     }
                     case "en":
-                    case "en_EN":{
+                    case "en_US":{
                         locale = new Locale("lv", "LV");
                         break;
                     }
@@ -60,12 +64,14 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 Locale.setDefault(locale);
+                LocaleList localeList = new LocaleList(locale);
                 Configuration config = new Configuration();
                 config.locale = locale;
+                DatabaseHelper.DatabaseUpdateField("users", user.getEmail().toLowerCase(), "Language", config.getLocales().toString());
                 getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+//                Toast.makeText(SettingsActivity.this, ""+config , Toast.LENGTH_LONG).show();
                 recreate();
             }
-
         });
 
         //ToDo Sound Switch
