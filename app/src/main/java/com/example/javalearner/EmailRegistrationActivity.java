@@ -23,6 +23,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class EmailRegistrationActivity extends AppCompatActivity {
@@ -132,8 +133,9 @@ public class EmailRegistrationActivity extends AppCompatActivity {
     private void registerToDatabase(String username, String email) {
         Map<String, Object> user = new HashMap<>();
         user.put("Username", username);
-        user.put("Level", 1);
-
+        user.put("XP", 0);
+        user.put("Completed quests", 0);
+        user.put("Language", Locale.getDefault().getLanguage());
         db.collection("users").document(email.toLowerCase())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
