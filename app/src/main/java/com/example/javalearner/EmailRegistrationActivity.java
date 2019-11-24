@@ -1,9 +1,7 @@
 package com.example.javalearner;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -12,15 +10,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -36,8 +35,6 @@ public class EmailRegistrationActivity extends AppCompatActivity {
     TextView mLoginTxtView;
 
     String error  = null;
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private FirebaseAuth mAuth;
     
@@ -133,23 +130,11 @@ public class EmailRegistrationActivity extends AppCompatActivity {
     private void registerToDatabase(String username, String email) {
         Map<String, Object> user = new HashMap<>();
         user.put("Username", username);
-        user.put("XP", 0);
+        user.put("XP", 1);
         user.put("Completed quests", 0);
         user.put("Language", Locale.getDefault().getLanguage());
-        db.collection("users").document(email.toLowerCase())
-                .set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(EmailRegistrationActivity.this, "Good for db", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EmailRegistrationActivity.this, "Error for db: "+e, Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+        DatabaseHelper.DatabaseWrite("users", email.toLowerCase(), user);
     }
 
     private void sendVerificationEmail() {
@@ -157,14 +142,7 @@ public class EmailRegistrationActivity extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
 
         user.sendEmailVerification()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-//                            Toast.makeText(EmailRegistrationActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(EmailRegistrationActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -177,6 +155,7 @@ public class EmailRegistrationActivity extends AppCompatActivity {
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(username)
+                .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/java-learner-rvt.appspot.com/o/Avatars%2Favatar.png?alt=media&token=3eb503d7-0098-41a9-9128-f6979c160686"))
                 .build();
 
         user.updateProfile(profileUpdates)

@@ -1,14 +1,16 @@
 package com.example.javalearner;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -20,6 +22,7 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
 
 	EditText mEmailEdit;
 	Button mRestorePasswordBtn;
+	TextView mBackFromRecover;
 
 	private FirebaseAuth mAuth;
 
@@ -30,6 +33,7 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
 
 		mEmailEdit = findViewById(R.id.emailEdit);
 		mRestorePasswordBtn = findViewById(R.id.restorePasswordBtn);
+		mBackFromRecover = findViewById(R.id.BackFromRecover);
 
 
 		mRestorePasswordBtn.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +49,13 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
 				}else{
 					restorePassword(email);
 				}
+			}
+		});
+
+		mBackFromRecover.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(ForgottenPasswordActivity.this, LoginActivity.class));
 			}
 		});
 

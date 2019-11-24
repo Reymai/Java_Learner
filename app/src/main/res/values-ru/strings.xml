@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Java Learner</string>
     <string name="login">Авторизация</string>
     <string name="sign_up">Регистрация</string>
     <string name="repeat_password">Повторите пароль</string>
@@ -11,4 +10,5 @@
     <string name="Login_to_registration_string">Нет аккаунта? Зарегистрируйся здесь!</string>
     <string name="language">Язык</string>
     <string name="sound">Звук</string>
+    <string name="Level">Уровень</string>
 </resources>
