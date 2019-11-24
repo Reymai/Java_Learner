@@ -3,7 +3,7 @@ package com.example.javalearner;
 public class Upload {
 
     private String mName;
-    private String mPrifileUrl;
+    private String mProfileUrl;
 
     public Upload(){
 
@@ -15,7 +15,7 @@ public class Upload {
         }
 
         mName = name;
-        mPrifileUrl = prifileUrl;
+        mProfileUrl = prifileUrl;
         }
 
     public String getName(){
@@ -27,10 +27,10 @@ public class Upload {
     }
 
     public String getPrifileUri(){
-        return mPrifileUrl;
+        return mProfileUrl;
     }
 
     public void setPrifileUrl(String prifileUrl){
-        mPrifileUrl = prifileUrl;
+        mProfileUrl = prifileUrl;
     }
 }
