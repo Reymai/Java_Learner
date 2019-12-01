@@ -1,15 +1,14 @@
 package com.example.javalearner;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.LocaleList;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +22,6 @@ public class SettingsActivity extends AppCompatActivity {
     ImageButton mLanguageSwitch;
     Switch mSoundSwitch;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +31,22 @@ public class SettingsActivity extends AppCompatActivity {
         mSoundSwitch = findViewById(R.id.SoundSwitch);
 
         Configuration configuration = getResources().getConfiguration();
-        String language = configuration.getLocales().toString();
-//        configuration.setLocale(Locale.forLanguageTag(language));
+
+        final SharedPreferences sharedPref = SettingsActivity.this.getPreferences(Context.MODE_PRIVATE);
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        if (!LocaleHelper.checkLocaleSharedPreferences("Locale", sharedPref, this)){
+            super.recreate();
+        }
 
         mLanguageSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String dbLang = DatabaseHelper.DatabaseRead("users", user.getEmail(), "Language");
                 Locale locale = Locale.getDefault();
-                String lang = locale.getLanguage();
-                switch (lang){
+                String language = locale.getLanguage();
+
+                switch (language){
                     case "ru":
                     case "ru_RU":{
                         locale = new Locale("en", "US");
@@ -63,13 +64,11 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
 
-                Locale.setDefault(locale);
-                LocaleList localeList = new LocaleList(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                DatabaseHelper.DatabaseUpdateField("users", user.getEmail().toLowerCase(), "Language", config.getLocales().toString());
-                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-//                Toast.makeText(SettingsActivity.this, ""+config , Toast.LENGTH_LONG).show();
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("Locale", locale.getLanguage());
+                editor.commit();
+                LocaleHelper.changeLanguage(locale, SettingsActivity.this);
+
                 recreate();
             }
         });
@@ -79,7 +78,10 @@ public class SettingsActivity extends AppCompatActivity {
         mExitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Locale locale = Locale.getDefault();
+                DatabaseHelper.DatabaseUpdateField("users", user.getEmail().toLowerCase(), "Language", locale.getLanguage());
                 startActivity(new Intent(SettingsActivity.this, MainMenuActivity.class));
+                finish();
             }
         });
     }

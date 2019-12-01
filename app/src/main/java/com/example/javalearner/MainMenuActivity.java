@@ -1,8 +1,11 @@
 package com.example.javalearner;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Locale;
 //import com.google.firebase.storage.FirebaseStorage;
 //import com.google.firebase.storage.StorageReference;
 
@@ -61,16 +66,37 @@ public class MainMenuActivity extends AppCompatActivity {
         }else{
             signOut();
         }
+        //Language
+            final SharedPreferences sharedPref = MainMenuActivity.this.getPreferences(Context.MODE_PRIVATE);
+            final String dbLang = DatabaseHelper.DatabaseRead("users", user.getEmail(), "Language");
 
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Locale locale = new Locale(dbLang);
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("Locale", locale.getLanguage());
+            editor.commit();
+
+            if (!LocaleHelper.checkLocaleSharedPreferences("Locale", sharedPref, this)){
+                super.recreate();
+            }
         //Progress
         mMainMenuPB.setVisibility(View.VISIBLE);
-        int progress = Integer.parseInt(DatabaseHelper.DatabaseRead("users", user.getEmail(), "XP"));
-        mMainMenuPB.setVisibility(View.GONE);
-        mProgressBar.setMax(100);
-        mProgressBar.setProgress(progress);
-        Toast.makeText(MainMenuActivity.this, "Progress: "+progress, Toast.LENGTH_SHORT).show();
-
-
+        try {
+            int progress = Integer.parseInt(DatabaseHelper.DatabaseRead("users", user.getEmail(), "XP"));
+            mMainMenuPB.setVisibility(View.GONE);
+            mProgressBar.setMax(100);
+            mProgressBar.setProgress(progress);
+            Toast.makeText(MainMenuActivity.this, "Progress: "+progress, Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Log.e("Database error:", ""+e);
+//            recreate();
+        }
 
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +115,7 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
+                finish();
             }
         });
 
@@ -96,6 +123,7 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainMenuActivity.this, LibraryThemeListActivity.class));
+                finish();
             }
         });
 
@@ -103,6 +131,7 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainMenuActivity.this, ProfileActivity.class));
+                finish();
             }
         });
 
@@ -123,6 +152,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        finishAndRemoveTask();
     }
 }

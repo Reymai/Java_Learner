@@ -1,11 +1,11 @@
 package com.example.javalearner;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LibraryThemeListActivity extends AppCompatActivity {
 
@@ -21,6 +21,7 @@ public class LibraryThemeListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LibraryThemeListActivity.this, MainMenuActivity.class));
+                finish();
             }
         });
     }
