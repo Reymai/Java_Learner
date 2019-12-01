@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -106,6 +108,7 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,19 +167,16 @@ public class MainMenuActivity extends AppCompatActivity {
                 super.recreate();
             }
         //Progress
-        mMainMenuPB.setVisibility(View.VISIBLE);
-        try {
-            int progress = Integer.parseInt(DatabaseHelper.DatabaseRead("users", user.getEmail(), "XP"));
-            mMainMenuPB.setVisibility(View.GONE);
-            mProgressBar.setMax(100);
-            mProgressBar.setProgress(progress);
-            Toast.makeText(MainMenuActivity.this, "Progress: "+progress, Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
-            Log.e("Database error:", ""+e);
-//            recreate();
-        }
 
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(MainMenuActivity.this, "You have been logout!!!", Toast.LENGTH_SHORT);
+                startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
+            }
+
+        });
         mProgressBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,28 +198,6 @@ public class MainMenuActivity extends AppCompatActivity {
                         mProgressBar.setProgress(progress);
                     }
                 });
-
-
-                mProgressBar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(MainMenuActivity.this, "+5 XP", Toast.LENGTH_SHORT).show();
-                        int progress = 5;
-                        int currentProgress;
-                        int progressMax = mProgressBar.getMax();
-
-//                String level = mLVLTxt.getText().toString();
-//                int levelInt = Integer.valueOf(level);
-
-                        mProgressBar.setMax(100);
-                        currentProgress = mProgressBar.getProgress();
-                        mProgressBar.setProgress(currentProgress + progress);
-//                        if(currentProgress>=progressMax){
-//                            mLVLTxt.setText(levelInt = levelInt + 1);
-//                            mProgressBar.setProgress(0);
-//                            mProgressBar.setMax(progressMax * 2);
-//                        }            }
-        });
         mSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -254,8 +232,6 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
     }
-}
-
 
     @Override
     public void onBackPressed() {
