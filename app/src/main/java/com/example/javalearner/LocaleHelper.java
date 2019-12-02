@@ -78,12 +78,21 @@ public abstract class LocaleHelper extends Context {
 		}
 		return true;
 	}
+	public static String getLocaleDatabase(FirebaseUser user){ //TODO request time
+		final String dbLang = DatabaseHelper.DatabaseRead("users", user.getEmail(), "Language");
+		return dbLang;
+	}
 
 	@RequiresApi(api = Build.VERSION_CODES.N)
 	public  static boolean checkLocaleSharedPreferences(String key, SharedPreferences sharedPref, Context context){
 		String language = sharedPref.getString(key, null);
 		Locale locale = Locale.getDefault();
+
 		final String defaultLanguage = locale.getLanguage();
+
+		if (language == null){
+
+		}
 
 		if (!language.equals("ru") && !language.equals("en") && !language.equals("lv")) {
 			Log.e("Isn't actual SP", ""+language);

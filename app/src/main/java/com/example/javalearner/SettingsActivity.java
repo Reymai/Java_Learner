@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     ImageButton mLanguageSwitch;
     Switch mSoundSwitch;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("Locale", locale.getLanguage());
-                editor.commit();
+                editor.apply();
                 LocaleHelper.changeLanguage(locale, SettingsActivity.this);
 
                 recreate();

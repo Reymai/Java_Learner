@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageButton;
@@ -56,7 +57,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
 
-    private void openFileChooser(){
+    private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -67,20 +68,21 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             mPrifileUri = data.getData();
             mProfileImg.setImageURI(mPrifileUri);
-        };
+        }
+        ;
     }
 
-    private String getFileExntension(Uri uri){
+    private String getFileExntension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
     private void uploadFile() {
-        if (mPrifileUri != null){
+        if (mPrifileUri != null) {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
                     + "." + getFileExntension(mPrifileUri));
 
@@ -102,7 +104,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
                         }
                     });
-        }else {
+        } else {
             Toast.makeText(this, "No file selected1", Toast.LENGTH_SHORT).show();
         }
     }
@@ -130,12 +132,11 @@ public class MainMenuActivity extends AppCompatActivity {
 //        DatabaseReference myRef = database.getReference("Avatars");
 
 
-
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Toast.makeText(MainMenuActivity.this, "You have been logout!!!", Toast.LENGTH_SHORT);
+                Toast.makeText(MainMenuActivity.this, "You have been logout!!!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
             }
 
@@ -148,56 +149,56 @@ public class MainMenuActivity extends AppCompatActivity {
             mUsername.setText(name);
         }
         //Language
-            final SharedPreferences sharedPref = MainMenuActivity.this.getPreferences(Context.MODE_PRIVATE);
-            final String dbLang = DatabaseHelper.DatabaseRead("users", user.getEmail(), "Language");
+        final SharedPreferences sharedPref = MainMenuActivity.this.getPreferences(Context.MODE_PRIVATE);
+        final String dbLang = DatabaseHelper.DatabaseRead("users", user.getEmail(), "Language");
 
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            Locale locale = new Locale(dbLang);
+        Locale locale = new Locale(dbLang);
 
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("Locale", locale.getLanguage());
-            editor.commit();
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("Locale", locale.getLanguage());
+        Log.e("Locale","Changed to: "+locale.getLanguage());
+        editor.apply();
 
-            if (!LocaleHelper.checkLocaleSharedPreferences("Locale", sharedPref, this)){
-                super.recreate();
-            }
-        //Progress
+        if (!LocaleHelper.checkLocaleSharedPreferences("Locale", sharedPref, this)) {
+            super.recreate();
+        }
 
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Toast.makeText(MainMenuActivity.this, "You have been logout!!!", Toast.LENGTH_SHORT);
+                Toast.makeText(MainMenuActivity.this, "You have been logout!!!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
             }
 
         });
-        mProgressBar.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View view) {
-//                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-//                 DocumentReference docRef = db.collection("users").document(user.getEmail());
-//                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                     @Override
-//                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                         int progress = 0;
-//                         mProgressBar.setMax(100);
-//                         if (task.isSuccessful()) {
-//                             DocumentSnapshot document = task.getResult();
-//                             if (document.exists()) {
-//                                 progress = Integer.parseInt(document.getData().get("XP").toString());
-//                             }
-//                         } else {
-//                             Toast.makeText(MainMenuActivity.this, "Some Error", Toast.LENGTH_SHORT);
-//                         }
-//                         mProgressBar.setProgress(progress);
-//                     }
-                });
+//        mProgressBar.setOnClickListener(new View.OnClickListener() {
+////             @Override
+////             public void onClick(View view) {
+////                 FirebaseFirestore db = FirebaseFirestore.getInstance();
+////                 DocumentReference docRef = db.collection("users").document(user.getEmail());
+////                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+////                     @Override
+////                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+////                         int progress = 0;
+////                         mProgressBar.setMax(100);
+////                         if (task.isSuccessful()) {
+////                             DocumentSnapshot document = task.getResult();
+////                             if (document.exists()) {
+////                                 progress = Integer.parseInt(document.getData().get("XP").toString());
+////                             }
+////                         } else {
+////                             Toast.makeText(MainMenuActivity.this, "Some Error", Toast.LENGTH_SHORT);
+////                         }
+////                         mProgressBar.setProgress(progress);
+////                     }
+//        });
         mSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -222,13 +223,11 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-                mProfileImg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        openFileChooser();
-                        uploadFile();
-                    }
-                });
+        mProfileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFileChooser();
+                uploadFile();
             }
         });
     }
