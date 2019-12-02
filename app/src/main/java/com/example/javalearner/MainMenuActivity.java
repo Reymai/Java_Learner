@@ -165,7 +165,7 @@ public class MainMenuActivity extends AppCompatActivity {
         Log.e("Locale","Changed to: "+locale.getLanguage());
         editor.apply();
 
-        if (!LocaleHelper.checkLocaleSharedPreferences("Locale", sharedPref, this)) {
+        if (!LocaleHelper.checkLocaleSharedPreferences(user, "Locale", sharedPref, this)) {
             super.recreate();
         }
 

@@ -39,7 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (!LocaleHelper.checkLocaleSharedPreferences("Locale", sharedPref, this)){
+        if (!LocaleHelper.checkLocaleSharedPreferences(user, "Locale", sharedPref, this)){
             super.recreate();
         }
 
@@ -83,6 +83,11 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Locale locale = Locale.getDefault();
                 DatabaseHelper.DatabaseUpdateField("users", user.getEmail().toLowerCase(), "Language", locale.getLanguage());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 startActivity(new Intent(SettingsActivity.this, MainMenuActivity.class));
                 finish();
             }

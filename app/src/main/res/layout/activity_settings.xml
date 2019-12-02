@@ -69,7 +69,8 @@
         app:layout_constraintHorizontal_bias="0.763"
         app:layout_constraintStart_toStartOf="@+id/SettingsImg"
         app:layout_constraintTop_toTopOf="@+id/SettingsImg"
-        app:layout_constraintVertical_bias="0.559" />
+        app:layout_constraintVertical_bias="0.559"
+        tools:checked="true" />
 
     <ImageButton
         android:id="@+id/exitImgBtn"
