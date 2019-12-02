@@ -178,25 +178,25 @@ public class MainMenuActivity extends AppCompatActivity {
 
         });
         mProgressBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference docRef = db.collection("users").document(user.getEmail());
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        int progress = 0;
-                        mProgressBar.setMax(100);
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                progress = Integer.parseInt(document.getData().get("XP").toString());
-                            }
-                        } else {
-                            Toast.makeText(MainMenuActivity.this, "Some Error", Toast.LENGTH_SHORT);
-                        }
-                        mProgressBar.setProgress(progress);
-                    }
+//             @Override
+//             public void onClick(View view) {
+//                 FirebaseFirestore db = FirebaseFirestore.getInstance();
+//                 DocumentReference docRef = db.collection("users").document(user.getEmail());
+//                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                     @Override
+//                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                         int progress = 0;
+//                         mProgressBar.setMax(100);
+//                         if (task.isSuccessful()) {
+//                             DocumentSnapshot document = task.getResult();
+//                             if (document.exists()) {
+//                                 progress = Integer.parseInt(document.getData().get("XP").toString());
+//                             }
+//                         } else {
+//                             Toast.makeText(MainMenuActivity.this, "Some Error", Toast.LENGTH_SHORT);
+//                         }
+//                         mProgressBar.setProgress(progress);
+//                     }
                 });
         mSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
