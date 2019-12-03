@@ -163,14 +163,23 @@ public class MainMenuActivity extends AppCompatActivity {
 
         if (!LocaleHelper.checkLocaleSharedPreferences(user, "Locale", sharedPref, this)) {
             super.recreate();
+        }else{
+            String SPlocale = getResources().getConfiguration().locale.getLanguage();
+            Log.e("Configuration locale", "is " +SPlocale);
+            String language = sharedPref.getString("Locale", null);
+
+            if (!SPlocale.equals(language)){
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                LocaleHelper.changeLanguage(SPlocale, this);
+                super.recreate();
+            }
         }
 
-        String SPlocale = getResources().getConfiguration().locale.getLanguage();
-        Log.e("Configuration locale", "is " +SPlocale);
-        String language = sharedPref.getString("Locale", null);
-        if (!SPlocale.equals(language)){
-            recreate();
-        }
+
 
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
