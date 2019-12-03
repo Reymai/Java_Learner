@@ -25,4 +25,8 @@ public class LibraryThemeListActivity extends AppCompatActivity {
             }
         });
     }
+    public void onBackPressed() {
+        startActivity(new Intent(LibraryThemeListActivity.this, MainMenuActivity.class));
+        finish();
+    }
 }

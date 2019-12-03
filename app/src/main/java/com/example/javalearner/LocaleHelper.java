@@ -3,10 +3,7 @@ package com.example.javalearner;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.google.firebase.auth.FirebaseUser;
 
@@ -88,7 +85,6 @@ public abstract class LocaleHelper extends Context {
 		return dbLang;
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.N)
 	public  static boolean checkLocaleSharedPreferences(FirebaseUser user, String key, SharedPreferences sharedPref, Context context){
 		String language = sharedPref.getString(key, null);
 		Locale locale = Locale.getDefault();
@@ -96,7 +92,7 @@ public abstract class LocaleHelper extends Context {
 		final String defaultLanguage = locale.getLanguage();
 
 		if (language == null){
-			language = getLocaleDatabase(user, 300);
+			language = getLocaleDatabase(user, 500);
 		}
 
 		if (!language.equals("ru") && !language.equals("en") && !language.equals("lv")) {
@@ -113,7 +109,7 @@ public abstract class LocaleHelper extends Context {
 
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putString("Locale", language);
-			editor.commit();
+			editor.apply();
 			return false;
 		}
 		return true;

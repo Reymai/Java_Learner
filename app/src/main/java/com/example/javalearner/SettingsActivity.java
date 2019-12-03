@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Switch;
@@ -41,6 +42,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (!LocaleHelper.checkLocaleSharedPreferences(user, "Locale", sharedPref, this)){
             super.recreate();
+        }
+
+        String SPlocale = getResources().getConfiguration().locale.getLanguage();
+        Log.e("Configuration locale", "is " +SPlocale);
+        String language = sharedPref.getString("Locale", null);
+        if (!SPlocale.equals(language)){
+            LocaleHelper.changeLanguage(SPlocale, this);
+            recreate();
         }
 
         mLanguageSwitch.setOnClickListener(new View.OnClickListener() {
@@ -92,5 +101,9 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    public void onBackPressed() {
+        startActivity(new Intent(SettingsActivity.this, MainMenuActivity.class));
+        finish();
     }
 }

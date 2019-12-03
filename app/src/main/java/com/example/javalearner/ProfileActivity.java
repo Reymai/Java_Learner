@@ -36,4 +36,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ProfileActivity.this, MainMenuActivity.class));
+        finish();
+    }
 }

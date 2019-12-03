@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,19 +22,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.util.Locale;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -169,6 +165,13 @@ public class MainMenuActivity extends AppCompatActivity {
             super.recreate();
         }
 
+        String SPlocale = getResources().getConfiguration().locale.getLanguage();
+        Log.e("Configuration locale", "is " +SPlocale);
+        String language = sharedPref.getString("Locale", null);
+        if (!SPlocale.equals(language)){
+            recreate();
+        }
+
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,25 +182,25 @@ public class MainMenuActivity extends AppCompatActivity {
 
         });
 //        mProgressBar.setOnClickListener(new View.OnClickListener() {
-////             @Override
-////             public void onClick(View view) {
-////                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-////                 DocumentReference docRef = db.collection("users").document(user.getEmail());
-////                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-////                     @Override
-////                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-////                         int progress = 0;
-////                         mProgressBar.setMax(100);
-////                         if (task.isSuccessful()) {
-////                             DocumentSnapshot document = task.getResult();
-////                             if (document.exists()) {
-////                                 progress = Integer.parseInt(document.getData().get("XP").toString());
-////                             }
-////                         } else {
-////                             Toast.makeText(MainMenuActivity.this, "Some Error", Toast.LENGTH_SHORT);
-////                         }
-////                         mProgressBar.setProgress(progress);
-////                     }
+//             @Override
+//             public void onClick(View view) {
+//                 FirebaseFirestore db = FirebaseFirestore.getInstance();
+//                 DocumentReference docRef = db.collection("users").document(user.getEmail());
+//                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                     @Override
+//                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                         int progress = 0;
+//                         mProgressBar.setMax(100);
+//                         if (task.isSuccessful()) {
+//                             DocumentSnapshot document = task.getResult();
+//                             if (document.exists()) {
+//                                 progress = Integer.parseInt(document.getData().get("XP").toString());
+//                             }
+//                         } else {
+//                             Toast.makeText(MainMenuActivity.this, "Some Error", Toast.LENGTH_SHORT);
+//                         }
+//                         mProgressBar.setProgress(progress);
+//                     }
 //        });
         mSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
