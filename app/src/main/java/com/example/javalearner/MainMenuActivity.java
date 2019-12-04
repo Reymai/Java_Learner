@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,61 +51,8 @@ public class MainMenuActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
 
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            mPrifileUri = data.getData();
-            mProfileImg.setImageURI(mPrifileUri);
-        }
-        ;
-    }
-
-    private String getFileExntension(Uri uri) {
-        ContentResolver cR = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
-    }
-
-    private void uploadFile() {
-        if (mPrifileUri != null) {
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
-                    + "." + getFileExntension(mPrifileUri));
-
-            fileReference.putFile(mPrifileUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            Upload upload = new Upload(mUsername.getText().toString().trim(),
-                                    taskSnapshot.getUploadSessionUri().toString());
-                            String uploadID = mDatabaseRef.push().getKey();
-                            mDatabaseRef.child(uploadID).setValue(upload);
-
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                        }
-                    });
-        } else {
-            Toast.makeText(this, "No file selected1", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @SuppressLint("WrongViewCast")
+	@SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,9 +89,10 @@ public class MainMenuActivity extends AppCompatActivity {
             String name = user.getDisplayName();
             mUsername.setText(name);
         }
+
         //Language
-        final SharedPreferences sharedPref = MainMenuActivity.this.getPreferences(Context.MODE_PRIVATE);
-        final String dbLang = DatabaseHelper.DatabaseRead("users", user.getEmail(), "Language");
+        SharedPreferences sharedPref = MainMenuActivity.this.getPreferences(Context.MODE_PRIVATE);
+        String dbLang = DatabaseHelper.DatabaseRead("users", user.getEmail(), "Language");
 
         try {
             Thread.sleep(500);
@@ -163,7 +109,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         if (!LocaleHelper.checkLocaleSharedPreferences(user, "Locale", sharedPref, this)) {
             super.recreate();
-        }else{
+        } else{
             String SPlocale = getResources().getConfiguration().locale.getLanguage();
             Log.e("Configuration locale", "is " +SPlocale);
             String language = sharedPref.getString("Locale", null);
@@ -179,9 +125,29 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         }
 
+        //Progress
+
+		mProgressBar.setProgress(0);
+		DatabaseHelper.DatabaseListen("users", user.getEmail(), "XP", sharedPref);
+		int progress = sharedPref.getInt("XP", 0);
+		if (progress != 0) {
+			String level = Integer.toString(ProgressHelper.levelCounter(progress));
+			int max = ProgressHelper.getMaxExperience(Integer.parseInt(level));
+			mLVLTxt.setText(level);
+			mProgressBar.setMax(max);
+			mProgressBar.setProgress(progress, true);
+		}
+
+		mProgressBar.setOnClickListener(new View.OnClickListener() {
+	        @Override
+	        public void onClick(View v) {
+//		        int progress = ProgressHelper.getProgress();
+//		        mProgressBar.setProgress(progress);
+	        }
+        });
 
 
-        mLogoutBtn.setOnClickListener(new View.OnClickListener() {
+	    mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
@@ -190,27 +156,6 @@ public class MainMenuActivity extends AppCompatActivity {
             }
 
         });
-//        mProgressBar.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View view) {
-//                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-//                 DocumentReference docRef = db.collection("users").document(user.getEmail());
-//                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                     @Override
-//                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                         int progress = 0;
-//                         mProgressBar.setMax(100);
-//                         if (task.isSuccessful()) {
-//                             DocumentSnapshot document = task.getResult();
-//                             if (document.exists()) {
-//                                 progress = Integer.parseInt(document.getData().get("XP").toString());
-//                             }
-//                         } else {
-//                             Toast.makeText(MainMenuActivity.this, "Some Error", Toast.LENGTH_SHORT);
-//                         }
-//                         mProgressBar.setProgress(progress);
-//                     }
-//        });
         mSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -244,8 +189,66 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+	private void openFileChooser() {
+		Intent intent = new Intent();
+		intent.setType("image/*");
+		intent.setAction(Intent.ACTION_GET_CONTENT);
+		startActivityForResult(intent, PICK_IMAGE_REQUEST);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+			mPrifileUri = data.getData();
+			mProfileImg.setImageURI(mPrifileUri);
+		}
+		;
+	}
+
+	private String getFileExntension(Uri uri) {
+		ContentResolver cR = getContentResolver();
+		MimeTypeMap mime = MimeTypeMap.getSingleton();
+		return mime.getExtensionFromMimeType(cR.getType(uri));
+	}
+
+	private void uploadFile() {
+		if (mPrifileUri != null) {
+			StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
+					+ "." + getFileExntension(mPrifileUri));
+
+			fileReference.putFile(mPrifileUri)
+					.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+						@Override
+						public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+							Upload upload = new Upload(mUsername.getText().toString().trim(),
+									taskSnapshot.getUploadSessionUri().toString());
+							String uploadID = mDatabaseRef.push().getKey();
+							mDatabaseRef.child(uploadID).setValue(upload);
+
+						}
+					})
+					.addOnFailureListener(new OnFailureListener() {
+						@Override
+						public void onFailure(@NonNull Exception e) {
+
+						}
+					});
+		} else {
+			Toast.makeText(this, "No file selected1", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	@Override
     public void onBackPressed() {
         finishAndRemoveTask();
+    }
+
+    @Override
+	public void onResume(){
+    	super.onResume();
+
     }
 }
