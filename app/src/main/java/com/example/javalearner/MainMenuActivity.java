@@ -130,21 +130,11 @@ public class MainMenuActivity extends AppCompatActivity {
 		mProgressBar.setProgress(0);
 		DatabaseHelper.DatabaseListen("users", user.getEmail(), "XP", sharedPref);
 		int progress = sharedPref.getInt("XP", 0);
-		if (progress != 0) {
-			String level = Integer.toString(ProgressHelper.levelCounter(progress));
-			int max = ProgressHelper.getMaxExperience(Integer.parseInt(level));
-			mLVLTxt.setText(level);
-			mProgressBar.setMax(max);
-			mProgressBar.setProgress(progress, true);
-		}
-
-		mProgressBar.setOnClickListener(new View.OnClickListener() {
-	        @Override
-	        public void onClick(View v) {
-//		        int progress = ProgressHelper.getProgress();
-//		        mProgressBar.setProgress(progress);
-	        }
-        });
+		String level = Integer.toString(ProgressHelper.levelCounter(progress));
+		int max = ProgressHelper.getMaxExperience(Integer.parseInt(level));
+		mLVLTxt.setText(level);
+		mProgressBar.setMax(max);
+		mProgressBar.setProgress(progress, true);
 
 
 	    mLogoutBtn.setOnClickListener(new View.OnClickListener() {

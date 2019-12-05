@@ -23,12 +23,13 @@ import java.util.Map;
 public class DatabaseHelper{
 
 	private static DocumentSnapshot document;
-	private static String result;
+	private static String stringResult;
 	private static int intResult;
+	private static boolean booleanResult;
 	private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-	public  static void DatabaseListen(String collectionPath, String documentToSearch, final String field, SharedPreferences sharedPref){
+	public static void DatabaseListen(String collectionPath, String documentToSearch, final String field, final SharedPreferences sharedPref){
 		final DocumentReference docRef = db.collection(collectionPath).document(documentToSearch);
 
 		docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -45,13 +46,12 @@ public class DatabaseHelper{
 				} else {
 					Log.d("DatabaseListener", "Current data: null");
 				}
-				intResult = Integer.parseInt(snapshot.getData().get(field).toString());
+				WriteToSharedPreferences(snapshot.getData().get(field).toString(), sharedPref);
+
 			}
 		});
 
-		SharedPreferences.Editor editor = sharedPref.edit();
-		editor.putInt(field, intResult);
-		editor.apply();
+		SharedPreferencesHelper.writeInt(field, intResult, sharedPref);
 	}
 
 	public static String DatabaseRead(String collectionPath, String documentToSearch, final String field) {
@@ -64,8 +64,8 @@ public class DatabaseHelper{
 						document = task.getResult();
 
 						if (document.exists()) {
-							result = document.getData().get(field).toString();
-							Log.i("DatabaseRead", "" + result);
+							stringResult = document.getData().get(field).toString();
+							Log.i("DatabaseRead", "" + stringResult);
 						} else {
 							Log.e("DatabaseRead", "Document is not exist!");
 						}
@@ -75,10 +75,10 @@ public class DatabaseHelper{
 				}
 
 			});
-			if (result == null){
+			if (stringResult == null){
 				return "null";
 			}else{
-				return result;
+				return stringResult;
 			}
 	}
 	public static String DatabaseRead(String collectionPath, String documentToSearch){
@@ -90,8 +90,8 @@ public class DatabaseHelper{
 				if (task.isSuccessful()) {
 					document = task.getResult();
 					if (document.exists()) {
-						result = document.getData().toString();
-						Log.i("DatabaseRead", "" + result);
+						stringResult = document.getData().toString();
+						Log.i("DatabaseRead", "" + stringResult);
 					}else{
 						Log.e("DatabaseRead","Document is not exist!");
 					}
@@ -101,8 +101,8 @@ public class DatabaseHelper{
 			}
 
 		});
-		if(result != null) {
-			return result;
+		if(stringResult != null) {
+			return stringResult;
 		}else{
 			return "0";
 		}
@@ -133,4 +133,25 @@ public class DatabaseHelper{
 				.set(data, SetOptions.merge());
 	}
 
+	private static void WriteToSharedPreferences(String fieldData, SharedPreferences sharedPref){
+		try {
+			intResult = Integer.parseInt(fieldData);
+			SharedPreferencesHelper.writeInt(fieldData, intResult, sharedPref);
+		}catch (Exception exception){
+			exception.printStackTrace();
+		}
+		try {
+			stringResult = fieldData;
+			SharedPreferencesHelper.writeString(fieldData, stringResult, sharedPref);
+
+		}catch (Exception exception){
+			exception.printStackTrace();
+		}
+		try {
+			booleanResult = Boolean.parseBoolean(fieldData);
+			SharedPreferencesHelper.writeBoolean(fieldData, booleanResult, sharedPref);
+		}catch (Exception exception){
+			exception.printStackTrace();
+		}
+	}
 }

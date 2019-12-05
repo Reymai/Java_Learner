@@ -130,7 +130,7 @@ public class EmailRegistrationActivity extends AppCompatActivity {
     private void registerToDatabase(String username, String email) {
         Map<String, Object> user = new HashMap<>();
         user.put("Username", username);
-        user.put("XP", 1);
+        user.put("XP", 0);
         user.put("Completed quests", 0);
         user.put("Language", Locale.getDefault().getLanguage());
 
