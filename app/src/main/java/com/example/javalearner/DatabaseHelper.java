@@ -24,8 +24,6 @@ public class DatabaseHelper{
 
 	private static DocumentSnapshot document;
 	private static String stringResult;
-	private static int intResult;
-	private static boolean booleanResult;
 	private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -46,12 +44,12 @@ public class DatabaseHelper{
 				} else {
 					Log.d("DatabaseListener", "Current data: null");
 				}
-				WriteToSharedPreferences(snapshot.getData().get(field).toString(), sharedPref);
+
+				Object data = snapshot.getData().get(field);
+				SharedPreferencesHelper.WriteToSharedPreferences(field, data, sharedPref);
 
 			}
 		});
-
-		SharedPreferencesHelper.writeInt(field, intResult, sharedPref);
 	}
 
 	public static String DatabaseRead(String collectionPath, String documentToSearch, final String field) {
@@ -131,27 +129,5 @@ public class DatabaseHelper{
 
 		db.collection(collectionPath).document(documentName)
 				.set(data, SetOptions.merge());
-	}
-
-	private static void WriteToSharedPreferences(String fieldData, SharedPreferences sharedPref){
-		try {
-			intResult = Integer.parseInt(fieldData);
-			SharedPreferencesHelper.writeInt(fieldData, intResult, sharedPref);
-		}catch (Exception exception){
-			exception.printStackTrace();
-		}
-		try {
-			stringResult = fieldData;
-			SharedPreferencesHelper.writeString(fieldData, stringResult, sharedPref);
-
-		}catch (Exception exception){
-			exception.printStackTrace();
-		}
-		try {
-			booleanResult = Boolean.parseBoolean(fieldData);
-			SharedPreferencesHelper.writeBoolean(fieldData, booleanResult, sharedPref);
-		}catch (Exception exception){
-			exception.printStackTrace();
-		}
 	}
 }

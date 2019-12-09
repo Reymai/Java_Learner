@@ -101,11 +101,10 @@ public class MainMenuActivity extends AppCompatActivity {
         }
 
         Locale locale = new Locale(dbLang);
+		if (!dbLang.equals("null")){
+			SharedPreferencesHelper.WriteToSharedPreferences("Locale", locale.getLanguage(), sharedPref);
+		}
 
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("Locale", locale.getLanguage());
-        Log.e("Locale","Changed to: "+locale.getLanguage());
-        editor.apply();
 
         if (!LocaleHelper.checkLocaleSharedPreferences(user, "Locale", sharedPref, this)) {
             super.recreate();
@@ -129,7 +128,12 @@ public class MainMenuActivity extends AppCompatActivity {
 
 		mProgressBar.setProgress(0);
 		DatabaseHelper.DatabaseListen("users", user.getEmail(), "XP", sharedPref);
-		int progress = sharedPref.getInt("XP", 0);
+		int progress = 0;
+		try {
+			progress = Integer.parseInt(sharedPref.getString("XP", "0"));
+		}catch (Exception e){
+			Log.e("PROGRESS", ""+e);
+		}
 		String level = Integer.toString(ProgressHelper.levelCounter(progress));
 		int max = ProgressHelper.getMaxExperience(Integer.parseInt(level));
 		mLVLTxt.setText(level);

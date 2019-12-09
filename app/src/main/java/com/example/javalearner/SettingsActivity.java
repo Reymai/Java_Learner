@@ -76,6 +76,7 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
 
+//                SharedPreferencesHelper.WriteToSharedPreferences(locale.getLanguage(), sharedPref);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("Locale", locale.getLanguage());
                 editor.apply();
