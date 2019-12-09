@@ -1,15 +1,15 @@
 package com.example.javalearner;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -29,9 +29,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.util.Locale;
 
 public class MainMenuActivity extends AppCompatActivity {
+
+    private static final int PICK_IMAGE_REQUEST = 234;
 
     ImageButton mLogoutBtn;
     ImageButton mSettingsBtn;
@@ -41,18 +44,15 @@ public class MainMenuActivity extends AppCompatActivity {
     TextView mLVLTxt;
     ProgressBar mProgressBar;
     ImageView mProfileImg;
+    StorageReference mStorageReference;
+    Uri filePath;
 
-    Uri mPrifileUri;
+	private FirebaseAuth mAuth;
+	private FirebaseUser mUser;
+	private StorageReference mStorageRef;
+	private DatabaseReference mDatabaseRef;
 
-    private static final int PICK_IMAGE_REQUEST = 1;
-
-    private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
-    private StorageReference mStorageRef;
-    private DatabaseReference mDatabaseRef;
-
-
-	@SuppressLint("WrongViewCast")
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,18 +66,14 @@ public class MainMenuActivity extends AppCompatActivity {
         mProfileImg = findViewById(R.id.ProfileImg);
         mLibraryBtn = findViewById(R.id.LibraryBtn);
         mProfileBtn = findViewById(R.id.ProfileBtn);
-
-        mStorageRef = FirebaseStorage.getInstance().getReference("Avatars");
-//        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Avatars");
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("Avatars");
+        mStorageReference = FirebaseStorage.getInstance().getReference();
 
 
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Toast.makeText(MainMenuActivity.this, "You have been logout!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMenuActivity.this, "You have been logout!!!", Toast.LENGTH_SHORT);
                 startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
             }
 
@@ -166,72 +162,60 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        mProfileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainMenuActivity.this, ProfileActivity.class));
-                finish();
-            }
-        });
+                mProfileBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        uploadFile();
+                        startActivity(new Intent(MainMenuActivity.this, ProfileActivity.class));
+                    }
+                });
 
-        mProfileImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openFileChooser();
-                uploadFile();
-            }
-        });
-    }
+                mProfileImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openFileChooser();
 
-	private void openFileChooser() {
+                    }
+                });
+		}
+
+	private void openFileChooser(){
 		Intent intent = new Intent();
 		intent.setType("image/*");
 		intent.setAction(Intent.ACTION_GET_CONTENT);
-		startActivityForResult(intent, PICK_IMAGE_REQUEST);
+		startActivityForResult(Intent.createChooser(intent, "Select an Image"), PICK_IMAGE_REQUEST);
+	}
+
+	private void uploadFile(){
+		StorageReference riversRef = mStorageReference.child("images/profileava.jpg");
+
+		riversRef.putFile(filePath)
+				.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+					@Override
+					public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+					}
+				})
+				.addOnFailureListener(new OnFailureListener() {
+					@Override
+					public void onFailure(@NonNull Exception exception) {
+						// Handle unsuccessful uploads
+						// ...
+					}
+				});
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
-		if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-			mPrifileUri = data.getData();
-			mProfileImg.setImageURI(mPrifileUri);
-		}
-		;
-	}
-
-	private String getFileExntension(Uri uri) {
-		ContentResolver cR = getContentResolver();
-		MimeTypeMap mime = MimeTypeMap.getSingleton();
-		return mime.getExtensionFromMimeType(cR.getType(uri));
-	}
-
-	private void uploadFile() {
-		if (mPrifileUri != null) {
-			StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
-					+ "." + getFileExntension(mPrifileUri));
-
-			fileReference.putFile(mPrifileUri)
-					.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-						@Override
-						public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-							Upload upload = new Upload(mUsername.getText().toString().trim(),
-									taskSnapshot.getUploadSessionUri().toString());
-							String uploadID = mDatabaseRef.push().getKey();
-							mDatabaseRef.child(uploadID).setValue(upload);
-
-						}
-					})
-					.addOnFailureListener(new OnFailureListener() {
-						@Override
-						public void onFailure(@NonNull Exception e) {
-
-						}
-					});
-		} else {
-			Toast.makeText(this, "No file selected1", Toast.LENGTH_SHORT).show();
+		if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+			filePath = data.getData();
+			try{
+				Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+				mProfileImg.setImageBitmap(bitmap);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
