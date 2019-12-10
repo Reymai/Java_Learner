@@ -51,6 +51,7 @@ public class MainMenuActivity extends AppCompatActivity {
 	private FirebaseUser mUser;
 	private StorageReference mStorageRef;
 	private DatabaseReference mDatabaseRef;
+    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -79,7 +80,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         });
 
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user != null) {
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
@@ -136,6 +137,9 @@ public class MainMenuActivity extends AppCompatActivity {
 		mProgressBar.setMax(max);
 		mProgressBar.setProgress(progress, true);
 
+		//download avatar
+
+
 
 	    mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,8 +191,7 @@ public class MainMenuActivity extends AppCompatActivity {
 	}
 
 	private void uploadFile(){
-		StorageReference riversRef = mStorageReference.child("images/profileava.jpg");
-
+		StorageReference riversRef = mStorageReference.child("Avatars/" + user.getEmail().toString());
 		riversRef.putFile(filePath)
 				.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 					@Override
@@ -213,6 +216,7 @@ public class MainMenuActivity extends AppCompatActivity {
 			try{
 				Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 				mProfileImg.setImageBitmap(bitmap);
+				uploadFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
