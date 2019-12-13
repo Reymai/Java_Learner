@@ -217,6 +217,7 @@ public class MainMenuActivity extends AppCompatActivity {
 				Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 				mProfileImg.setImageBitmap(bitmap);
 				uploadFile();
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -16,14 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class EmailRegistrationActivity extends AppCompatActivity {
 
@@ -81,7 +78,8 @@ public class EmailRegistrationActivity extends AppCompatActivity {
                     mUsernameEdit.setFocusable(true);
                     mUsernameEdit.setError("Username is empty");
                 }else {
-                    registerUser(email, password, username);
+                    DatabaseHelper databaseHelper = new DatabaseHelper();
+                    databaseHelper.signUpUser(email, password, 1, 0, username, Locale.getDefault().getLanguage());
                 }
             }
         });
@@ -93,49 +91,6 @@ public class EmailRegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(final String email, String password, final String username) {
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-//                            Toast.makeText(EmailRegistrationActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
-                            try {
-                                registerToDatabase(username, email);
-                            } catch (Exception exception) {
-                                exception.printStackTrace();
-                                error = exception.toString();
-                            }
-                            if (error == null){
-                                setUsername(username);
-                                sendVerificationEmail();
-                                startActivity(new Intent(EmailRegistrationActivity.this, MainMenuActivity.class));
-                            }
-                            else {
-                                Toast.makeText(EmailRegistrationActivity.this, "Error with writing to database: " + error, Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(EmailRegistrationActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EmailRegistrationActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void registerToDatabase(String username, String email) {
-        Map<String, Object> user = new HashMap<>();
-        user.put("Username", username);
-        user.put("XP", 0);
-        user.put("Completed quests", 0);
-        user.put("Language", Locale.getDefault().getLanguage());
-
-        DatabaseHelper.DatabaseWrite("users", email.toLowerCase(), user);
-    }
 
     private void sendVerificationEmail() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
