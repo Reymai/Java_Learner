@@ -17,21 +17,21 @@
         app:layout_constraintEnd_toStartOf="@+id/LibraryBtn"
         app:layout_constraintHorizontal_bias="0.275"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TaskTab"
-        app:layout_constraintVertical_bias="0.545"
+        app:layout_constraintTop_toTopOf="@+id/LibraryBtn"
         app:srcCompat="@drawable/profile_button" />
 
     <ImageButton
         android:id="@+id/LibraryBtn"
         android:layout_width="110dp"
         android:layout_height="105dp"
+        android:layout_marginTop="2dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TaskTab"
+        app:layout_constraintTop_toBottomOf="@+id/container"
         app:srcCompat="@drawable/lib_button" />
 
     <ImageButton
@@ -44,8 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintStart_toEndOf="@+id/LibraryBtn"
-        app:layout_constraintTop_toBottomOf="@+id/TaskTab"
-        app:layout_constraintVertical_bias="0.545"
+        app:layout_constraintTop_toTopOf="@+id/LibraryBtn"
         app:srcCompat="@drawable/settings_button" />
 
     <ImageView
@@ -53,12 +52,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/TaskTab"
+        app:layout_constraintBottom_toTopOf="@+id/container"
         app:layout_constraintEnd_toStartOf="@+id/Username"
         app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/LogoutBtn"
@@ -73,58 +71,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logout" />
-
-    <TabHost
-        android:id="@+id/TaskTab"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/ProfileBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/list"
-                android:foregroundTint="#00FFFFFF">
-
-                <LinearLayout
-                    android:id="@+id/Available"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/SelectedTask"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" />
-
-                <LinearLayout
-                    android:id="@+id/Completed"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -184,6 +130,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="409dp"
+        android:layout_height="480dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/LibraryBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LvlImg">
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

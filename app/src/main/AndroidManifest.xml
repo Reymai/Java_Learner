@@ -14,6 +14,8 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6687150084219522~4547612304"/>
         <activity android:name=".GoogleRegistrationActivity"></activity>
+        <activity android:name=".QuestChoose_Basics" />
+        <activity android:name=".Quest_actiity"></activity>
         <activity android:name=".LibraryThemeInfoActivity" />
         <activity android:name=".LibraryThemeListActivity" />
         <activity android:name=".CodingActivity" />

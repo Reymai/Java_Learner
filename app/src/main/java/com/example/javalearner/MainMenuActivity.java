@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,6 +48,8 @@ public class MainMenuActivity extends AppCompatActivity {
     ImageView mProfileImg;
     StorageReference mStorageReference;
     Uri filePath;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction ;
 
 	private FirebaseAuth mAuth;
 	private FirebaseUser mUser;
@@ -69,6 +73,14 @@ public class MainMenuActivity extends AppCompatActivity {
         mProfileBtn = findViewById(R.id.ProfileBtn);
         mStorageReference = FirebaseStorage.getInstance().getReference();
 
+        setContentView(R.layout.activity_main_menu);
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        ContainerFragments quests = new ContainerFragments();
+
+        fragmentTransaction.replace(R.id.container,quests);
+        fragmentTransaction.commit();
 
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
