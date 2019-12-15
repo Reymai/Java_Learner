@@ -1,43 +1,133 @@
 package com.example.javalearner;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import android.content.SharedPreferences;
+import android.util.Log;
 
-public class DatabaseHelper extends Config {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-    Connection getDbConnection;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
 
-    public Connection getDbConnection() throws ClassNotFoundException, SQLException {
-        String connectionString = "jdbc:mysql://" + dbHost + ";" + dbPort + "/" + dbName;
+import java.util.HashMap;
+import java.util.Map;
 
-        Class.forName(".com.mysql.cj.jdbc.Driver");
+public class DatabaseHelper{
 
-        getDbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+	private static DocumentSnapshot document;
+	private static String stringResult;
+	private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        return getDbConnection;
-    }
 
-    public void signUpUser(String email, String password, Integer XP, Integer Complete_quest, String username, String Language) {
-        User user = new User();
-        String insert = "INSERT INTO " + Constante.USER_TABLE + "(" + Constante.USERS_EMAIL + "," + Constante.USERS_USERNAME + ","
-                + Constante.USERS_LANGUAGE + "," + Constante.USERS_XP + "," + Constante.USERS_COMPLETED_QUEST + "," + Constante.USERS_PASSWORD + ")" +
-                "VALUES(?,?,?,?,?,MD5(?))";
-        try {
-            PreparedStatement registration = getDbConnection().prepareStatement(insert);
-            registration.setString(1, user.getEmail());
-            registration.setString(2, user.getUsername());
-            registration.setString(3, user.getLanguage());
-            registration.setInt(4, user.getXP());
-            registration.setInt(5, Complete_quest);
-            registration.setString(6, password);
+	public static void DatabaseListen(String collectionPath, String documentToSearch, final String field, final SharedPreferences sharedPref){
+		final DocumentReference docRef = db.collection(collectionPath).document(documentToSearch);
 
-            registration.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+		docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+			@Override
+			public void onEvent(@Nullable DocumentSnapshot snapshot,
+			                    @Nullable FirebaseFirestoreException e) {
+				if (e != null) {
+					Log.w("DatabaseListener", "Listen failed.", e);
+					return;
+				}
+
+				if (snapshot != null && snapshot.exists()) {
+					Log.d("DatabaseListener", "Current data: " + snapshot.getData().get(field).toString());
+				} else {
+					Log.d("DatabaseListener", "Current data: null");
+				}
+
+				Object data = snapshot.getData().get(field);
+				SharedPreferencesHelper.WriteToSharedPreferences(field, data, sharedPref);
+
+			}
+		});
+	}
+
+	public static String DatabaseRead(String collectionPath, String documentToSearch, final String field) {
+			final DocumentReference docRef = db.collection(collectionPath).document(documentToSearch);
+
+			docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+				public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+					if (task.isSuccessful()) {
+						document = task.getResult();
+
+						if (document.exists()) {
+							stringResult = document.getData().get(field).toString();
+							Log.i("DatabaseRead", "" + stringResult);
+						} else {
+							Log.e("DatabaseRead", "Document is not exist!");
+						}
+					} else {
+						Log.e("DatabaseRead", "Something has wrong with Database! " + task.getException());
+					}
+				}
+
+			});
+			if (stringResult == null){
+				return "null";
+			}else{
+				return stringResult;
+			}
+	}
+	public static String DatabaseRead(String collectionPath, String documentToSearch){
+		final DocumentReference docRef = db.collection(collectionPath).document(documentToSearch);
+
+		docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+			public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+				if (task.isSuccessful()) {
+					document = task.getResult();
+					if (document.exists()) {
+						stringResult = document.getData().toString();
+						Log.i("DatabaseRead", "" + stringResult);
+					}else{
+						Log.e("DatabaseRead","Document is not exist!");
+					}
+				} else {
+					Log.e("DatabaseRead", "Something has wrong with Database! " + task.getException());
+				}
+			}
+
+		});
+		if(stringResult != null) {
+			return stringResult;
+		}else{
+			return "0";
+		}
+	}
+
+	public static void DatabaseWrite(String collectionPath, String documentName, Map<String, Object> user){
+		db.collection(collectionPath).document(documentName)
+				.set(user)
+				.addOnSuccessListener(new OnSuccessListener<Void>() {
+					@Override
+					public void onSuccess(Void aVoid) {
+						Log.i("DatabaseWrite", "Database has been successfully written");
+					}
+				})
+				.addOnFailureListener(new OnFailureListener() {
+					@Override
+					public void onFailure(@NonNull Exception e) {
+						Log.e("DatabaseWrite", "Database doesn't written successfully");
+					}
+				});
+	}
+
+	public  static void DatabaseUpdateField(String collectionPath, String documentName, String fieldTitle, String fieldVariable){
+		Map<String, Object> data = new HashMap<>();
+		data.put(fieldTitle, fieldVariable);
+
+		db.collection(collectionPath).document(documentName)
+				.set(data, SetOptions.merge());
+	}
 }

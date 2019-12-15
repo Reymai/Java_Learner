@@ -1,8 +1,8 @@
 package com.example.javalearner;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CodingActivity extends AppCompatActivity {
 
