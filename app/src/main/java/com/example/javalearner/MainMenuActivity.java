@@ -81,17 +81,6 @@ public class MainMenuActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.container,quests);
         fragmentTransaction.commit();
 
-        mLogoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(MainMenuActivity.this, "You have been logout!!!", Toast.LENGTH_SHORT);
-                startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
-            }
-
-        });
-
-
         if (user != null) {
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
