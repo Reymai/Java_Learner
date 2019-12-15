@@ -73,7 +73,6 @@ public class MainMenuActivity extends AppCompatActivity {
         mProfileBtn = findViewById(R.id.ProfileBtn);
         mStorageReference = FirebaseStorage.getInstance().getReference();
 
-        setContentView(R.layout.activity_main_menu);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
