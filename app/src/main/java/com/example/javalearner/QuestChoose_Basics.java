@@ -21,15 +21,14 @@ int quest;
         tab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                quest = 1;
                 Intent intent = new Intent(view.getContext(), Quest_activity.class);
+                intent.putExtra( "1" , 1 );
                 view.getContext().startActivity(intent);}
         });
 
         tab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                quest = 2;
                 Intent intent = new Intent(view.getContext(), Quest_activity.class);
                 intent.putExtra( "2" , 2 );
                 view.getContext().startActivity(intent);}
@@ -38,16 +37,16 @@ int quest;
         tab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                quest = 3;
                 Intent intent = new Intent(view.getContext(), Quest_activity.class);
+                intent.putExtra( "3" , 3 );
                 view.getContext().startActivity(intent);}
         });
 
         tab4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                quest = 4;
                 Intent intent = new Intent(view.getContext(), Quest_activity.class);
+                intent.putExtra( "4" , 4 );
                 view.getContext().startActivity(intent);}
         });
     }

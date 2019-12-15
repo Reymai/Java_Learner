@@ -25,16 +25,20 @@ public class Quest_activity extends AppCompatActivity {
         b4 = findViewById( R.id.btn3 );
         b5 = findViewById( R.id.btn4 );
 
-        cb1 = findViewById( R.id.a );
-        cb2 = findViewById( R.id.a1 );
-        cb3 = findViewById( R.id.a2 );
-        cb4 = findViewById( R.id.a3 );
+        cb5 = findViewById( R.id.a4 );
+        cb6 = findViewById( R.id.a5 );
+        cb7 = findViewById( R.id.a6 );
+        cb8 = findViewById( R.id.a7 );
+        cb9 = findViewById( R.id.a8 );
+        cb10 = findViewById( R.id.a9 );
+        cb11 = findViewById( R.id.a10 );
+        cb12 = findViewById( R.id.a11 );
 
         Text1 = findViewById( R.id.txt );
         Text2 = findViewById( R.id.txt1 );
-        Text3 = findViewById( R.id.btn2 );
-        Text4 = findViewById( R.id.btn3 );
-        Text5 = findViewById( R.id.btn4 );
+        Text3 = findViewById( R.id.txt2 );
+        Text4 = findViewById( R.id.txt3 );
+        Text5 = findViewById( R.id.txt4 );
 
         mTabHost = findViewById( R.id.TaskTab );
         final TabHost tabs = findViewById( R.id.TaskTab );
@@ -61,18 +65,72 @@ public class Quest_activity extends AppCompatActivity {
         spec.setIndicator( "5" );
         tabs.addTab( spec );
 
-        int quest = getIntent().getIntExtra( "2", 0 );
-        if (quest == 2) {
-            Text1.setText( "What command uses to print something" );
-            cb1.setText( "System.out.println" );
-            cb2.setText( "std::cout<<" );
-            cb3.setText( "vivod" );
-            cb4.setText( "println" );
+
+        int quest1 = getIntent().getIntExtra( "1", 0 );
+        int quest2 = getIntent().getIntExtra( "2", 0 );
+        int quest3 = getIntent().getIntExtra( "3", 0 );
+
+        if (quest1 == 1) {
+
+            Text1.setText( "All java programms need to have a main clss" );
             b1.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v){
+                    tabs.setCurrentTab( 1 );
+                }
+            });
+            Text2.setText( "What any java programm need" );
+            cb5.setText( "return" );
+            cb6.setText( "class" );
+            cb7.setText( "class main" );
+            cb8.setText( "nothing" );
+            b2.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v){
+                    tabs.setCurrentTab( 2 );
+                }
+            });
+            Text3.setText( "To print something in java use System.out.println(text); " );
+            b3.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v){
+                    tabs.setCurrentTab( 3 );
+                }
+            });
+            Text4.setText( "What command uses to print something" );
+            cb9.setText( "System.out.println" );
+            cb10.setText( "std::cout<<" );
+            cb11.setText( "vivod" );
+            cb12.setText( "println" );
+            b4.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v){
+                    tabs.setCurrentTab( 5 );
+                }
+            });
+        }
+        if (quest2 == 2) {
+            b1.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v){
+                    tabs.setCurrentTab( 1 );
+                }
+            });
+            Text2.setText( "What command uses to print something" );
+            cb5.setText( "System.out.println" );
+            cb6.setText( "std::cout<<" );
+            cb7.setText( "vivod" );
+            cb8.setText( "println" );
+            b2.setOnClickListener(new View.OnClickListener()
             {
                @Override
                public void onClick(View v){
-                   tabs.setCurrentTab( 1 );
+                   tabs.setCurrentTab( 2 );
                }
             });
         }
