@@ -22,10 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -56,8 +58,10 @@ public class MainMenuActivity extends AppCompatActivity {
 	private StorageReference mStorageRef;
 	private DatabaseReference mDatabaseRef;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+	final FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    @SuppressLint("WrongViewCast")
+
+	@SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +88,13 @@ public class MainMenuActivity extends AppCompatActivity {
         if (user != null) {
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
-            mUsername.setText(name);
+            Uri photo = user.getPhotoUrl();
+			Log.e("Photo In USER", ""+photo);
+	        StorageReference httpsReference = storage.getReferenceFromUrl(photo.toString());
+
+	        Glide.with(this)
+			        .load(photo)
+			        .into(mProfileImg);
         }
 
         //Language
@@ -139,8 +149,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
 		//download avatar
 
-
-
 	    mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,21 +174,20 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-                mProfileBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-//                        uploadFile();
-                        startActivity(new Intent(MainMenuActivity.this, ProfileActivity.class));
-                    }
-                });
+	    mProfileBtn.setOnClickListener(new View.OnClickListener() {
+	        @Override
+	        public void onClick(View view) {
+	            startActivity(new Intent(MainMenuActivity.this, ProfileActivity.class));
+	        }
+	    });
 
-                mProfileImg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        openFileChooser();
+	    mProfileImg.setOnClickListener(new View.OnClickListener() {
+	        @Override
+	        public void onClick(View view) {
+	            openFileChooser();
 
-                    }
-                });
+	        }
+	    });
 		}
 
 	private void openFileChooser(){
@@ -191,12 +198,21 @@ public class MainMenuActivity extends AppCompatActivity {
 	}
 
 	private void uploadFile(){
-		StorageReference riversRef = mStorageReference.child("Avatars/" + user.getEmail().toString());
+		final StorageReference riversRef = mStorageReference.child("Avatars/" + user.getEmail());
 		riversRef.putFile(filePath)
 				.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 					@Override
 					public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+						riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+							@Override
+							public void onSuccess(Uri uri) {
+								UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+										.setPhotoUri(uri)
+										.build();
+								user.updateProfile(profileUpdates);
+								mStorageReference.putFile(uri);
+							}
+						});
 					}
 				})
 				.addOnFailureListener(new OnFailureListener() {
@@ -231,6 +247,5 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
 	public void onResume(){
     	super.onResume();
-
     }
 }
