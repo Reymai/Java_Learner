@@ -99,10 +99,10 @@ public class DatabaseHelper{
 			}
 
 		});
-		if(stringResult != null) {
-			return stringResult;
+		if (stringResult == null){
+			return "null";
 		}else{
-			return "0";
+			return stringResult;
 		}
 	}
 

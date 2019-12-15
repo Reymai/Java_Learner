@@ -1,20 +1,33 @@
 package com.example.javalearner;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Map;
+
 public class Quest_activity extends AppCompatActivity {
     TabHost mTabHost;
     TextView Text1, Text2, Text3, Text4, Text5;
     CheckBox cb1,cb2,cb3,cb4,cb5,cb6,cb7,cb8,cb9,cb10,cb11,cb12;
     Button b1, b2, b3, b4, b5;
-    @Override
+
+	private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+	@Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_quest_actiity );
@@ -72,12 +85,29 @@ public class Quest_activity extends AppCompatActivity {
 
         if (quest1 == 1) {
 
-            Text1.setText( "All java programms need to have a main clss" );
+            Text1.setText( "All java programms need to have a main class" );
             b1.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v){
                     tabs.setCurrentTab( 1 );
+	                DocumentReference docRef = db.collection("Quests").document("1");
+	                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+		                @Override
+		                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+			                if (task.isSuccessful()) {
+				                DocumentSnapshot document = task.getResult();
+				                if (document.exists()) {
+					                Map dbAnswer = document.getData();
+
+					                String answerCb1 = dbAnswer.get("cb1").toString();
+				                }
+			                } else {
+				                Log.d("Something went wrong", "get failed with ", task.getException());
+			                }
+		                }
+	                });
+
                 }
             });
             Text2.setText( "What any java programm need" );
