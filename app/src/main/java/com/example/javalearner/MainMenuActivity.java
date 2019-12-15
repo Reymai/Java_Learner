@@ -90,7 +90,6 @@ public class MainMenuActivity extends AppCompatActivity {
             String name = user.getDisplayName();
             Uri photo = user.getPhotoUrl();
 			Log.e("Photo In USER", ""+photo);
-	        StorageReference httpsReference = storage.getReferenceFromUrl(photo.toString());
 
 	        Glide.with(this)
 			        .load(photo)
