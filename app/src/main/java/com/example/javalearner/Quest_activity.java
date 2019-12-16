@@ -86,11 +86,26 @@ public class Quest_activity extends AppCompatActivity {
         if (quest1 == 1) {
 
             Text1.setText( "All java programms need to have a main class" );
-            b1.setOnClickListener(new View.OnClickListener()
-            {
+
+            b1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
                     tabs.setCurrentTab( 1 );
+                }
+            });
+            Text2.setText( "What any java programm need" );
+            cb5.setText( "return" );
+            cb6.setText( "class" );
+            cb7.setText( "class main" );
+            cb8.setText( "nothing" );
+
+
+
+            b2.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v){
+
 	                DocumentReference docRef = db.collection("Quests").document("1");
 	                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 		                @Override
@@ -99,27 +114,31 @@ public class Quest_activity extends AppCompatActivity {
 				                DocumentSnapshot document = task.getResult();
 				                if (document.exists()) {
 					                Map dbAnswer = document.getData();
-
 					                String answerCb1 = dbAnswer.get("cb1").toString();
+					                String answerCb2 = dbAnswer.get("cb2").toString();
+					                String answerCb3 = dbAnswer.get("cb3").toString();
+					                String answerCb4 = dbAnswer.get("cb4").toString();
+
+					                String answerSum = answerCb1 + answerCb2 + answerCb3 + answerCb4;
+					                Log.i("answer sum", ""+answerSum);
+
+					                StringBuffer result = new StringBuffer();
+					                result.append(cb5.isChecked());
+					                result.append(cb6.isChecked());
+					                result.append(cb7.isChecked());
+					                result.append(cb8.isChecked());
+					                Log.i("results", ""+result);
+
+					                if (answerSum.equals(result.toString())){
+					                	tabs.setCurrentTab(2);
+					                }
+
 				                }
 			                } else {
 				                Log.d("Something went wrong", "get failed with ", task.getException());
 			                }
 		                }
 	                });
-
-                }
-            });
-            Text2.setText( "What any java programm need" );
-            cb5.setText( "return" );
-            cb6.setText( "class" );
-            cb7.setText( "class main" );
-            cb8.setText( "nothing" );
-            b2.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v){
-                    tabs.setCurrentTab( 2 );
                 }
             });
             Text3.setText( "To print something in java use System.out.println(text); " );
