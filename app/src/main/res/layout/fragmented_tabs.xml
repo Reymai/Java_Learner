@@ -35,6 +35,9 @@
                     android:id="@+id/imageView11"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/text1"
@@ -42,12 +45,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@drawable/avatar"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/basics"
+                    tools:srcCompat="@drawable/basics" />
 
                 <TextView
                     android:id="@+id/text1"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Basics"
@@ -82,18 +85,21 @@
                     android:id="@+id/imageView12"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/text2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/buttonexit"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/values"
+                    tools:srcCompat="@drawable/values" />
 
                 <TextView
                     android:id="@+id/text2"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Values and opeartors"
@@ -129,18 +135,21 @@
                     android:id="@+id/imageView13"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/text3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/eng"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/cicles"
+                    tools:srcCompat="@drawable/cicles" />
 
                 <TextView
                     android:id="@+id/text3"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Cicles"
@@ -176,18 +185,21 @@
                     android:id="@+id/imageView14"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/text4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/lib_button"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/massives"
+                    tools:srcCompat="@drawable/massives" />
 
                 <TextView
                     android:id="@+id/text4"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Masives"
@@ -222,18 +234,21 @@
                     android:id="@+id/imageView15"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/text5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/logout"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/clas"
+                    tools:srcCompat="@drawable/clas" />
 
                 <TextView
                     android:id="@+id/text5"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Class and Object"
@@ -270,18 +285,21 @@
                     android:id="@+id/imageView16"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/text6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/ic_launcher"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/more"
+                    tools:srcCompat="@drawable/more" />
 
                 <TextView
                     android:id="@+id/text6"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Something more"
