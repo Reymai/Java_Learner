@@ -14,3 +14,5 @@ Storage: https://firebase.google.com/docs/storage/android/create-reference
          https://firebase.google.com/docs/storage/android/upload-files
          https://firebase.google.com/docs/storage/android/download-files
          https://www.youtube.com/watch?v=ZmgncLHk_s4
+Progress bar: https://developer.android.com/reference/android/widget/ProgressBar
+Image Buttons: https://developer.android.com/reference/android/widget/ImageButton
