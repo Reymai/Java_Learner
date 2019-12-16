@@ -24,6 +24,7 @@ public class Quest_activity extends AppCompatActivity {
     TextView Text1, Text2, Text3, Text4, Text5;
     CheckBox cb1,cb2,cb3,cb4,cb5,cb6,cb7,cb8,cb9,cb10,cb11,cb12;
     Button b1, b2, b3, b4, b5;
+	private static Map dbAnswer;
 
 	private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -83,9 +84,12 @@ public class Quest_activity extends AppCompatActivity {
         int quest2 = getIntent().getIntExtra( "2", 0 );
         int quest3 = getIntent().getIntExtra( "3", 0 );
 
-        if (quest1 == 1) {
 
-            Text1.setText( "All java programms need to have a main class" );
+		if (quest1 == 1) {
+
+			getResultFromDB("1");
+
+			Text1.setText( "All java programms need to have a main class" );
 
             b1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,40 +109,25 @@ public class Quest_activity extends AppCompatActivity {
             {
                 @Override
                 public void onClick(View v){
+	                String answerCb1 = dbAnswer.get("cb1").toString();
+	                String answerCb2 = dbAnswer.get("cb2").toString();
+	                String answerCb3 = dbAnswer.get("cb3").toString();
+	                String answerCb4 = dbAnswer.get("cb4").toString();
 
-	                DocumentReference docRef = db.collection("Quests").document("1");
-	                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-		                @Override
-		                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-			                if (task.isSuccessful()) {
-				                DocumentSnapshot document = task.getResult();
-				                if (document.exists()) {
-					                Map dbAnswer = document.getData();
-					                String answerCb1 = dbAnswer.get("cb1").toString();
-					                String answerCb2 = dbAnswer.get("cb2").toString();
-					                String answerCb3 = dbAnswer.get("cb3").toString();
-					                String answerCb4 = dbAnswer.get("cb4").toString();
+	                String answerSum = answerCb1 + answerCb2 + answerCb3 + answerCb4;
+	                Log.i("answer sum", ""+answerSum);
 
-					                String answerSum = answerCb1 + answerCb2 + answerCb3 + answerCb4;
-					                Log.i("answer sum", ""+answerSum);
+	                StringBuffer result = new StringBuffer();
+	                result.append(cb5.isChecked());
+	                result.append(cb6.isChecked());
+	                result.append(cb7.isChecked());
+	                result.append(cb8.isChecked());
+	                Log.i("results", ""+result);
 
-					                StringBuffer result = new StringBuffer();
-					                result.append(cb5.isChecked());
-					                result.append(cb6.isChecked());
-					                result.append(cb7.isChecked());
-					                result.append(cb8.isChecked());
-					                Log.i("results", ""+result);
+	                if (answerSum.equals(result.toString())){
+		                tabs.setCurrentTab(2);
+	                }
 
-					                if (answerSum.equals(result.toString())){
-					                	tabs.setCurrentTab(2);
-					                }
-
-				                }
-			                } else {
-				                Log.d("Something went wrong", "get failed with ", task.getException());
-			                }
-		                }
-	                });
                 }
             });
             Text3.setText( "To print something in java use System.out.println(text); " );
@@ -146,7 +135,24 @@ public class Quest_activity extends AppCompatActivity {
             {
                 @Override
                 public void onClick(View v){
-                    tabs.setCurrentTab( 3 );
+	                String answerCb1 = dbAnswer.get("cb5").toString();
+	                String answerCb2 = dbAnswer.get("cb6").toString();
+	                String answerCb3 = dbAnswer.get("cb7").toString();
+	                String answerCb4 = dbAnswer.get("cb8").toString();
+
+	                String answerSum = answerCb1 + answerCb2 + answerCb3 + answerCb4;
+	                Log.i("answer sum", ""+answerSum);
+
+	                StringBuffer result = new StringBuffer();
+	                result.append(cb9.isChecked());
+	                result.append(cb10.isChecked());
+	                result.append(cb11.isChecked());
+	                result.append(cb12.isChecked());
+	                Log.i("results", ""+result);
+
+	                if (answerSum.equals(result.toString())){
+		                tabs.setCurrentTab( 3 );
+	                }
                 }
             });
             Text4.setText( "What command uses to print something" );
@@ -163,8 +169,7 @@ public class Quest_activity extends AppCompatActivity {
             });
         }
         if (quest2 == 2) {
-            b1.setOnClickListener(new View.OnClickListener()
-            {
+            b1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
                     tabs.setCurrentTab( 1 );
@@ -175,13 +180,51 @@ public class Quest_activity extends AppCompatActivity {
             cb6.setText( "std::cout<<" );
             cb7.setText( "vivod" );
             cb8.setText( "println" );
-            b2.setOnClickListener(new View.OnClickListener()
+
+	        getResultFromDB("2");
+
+	        b2.setOnClickListener(new View.OnClickListener()
             {
+
                @Override
                public void onClick(View v){
-                   tabs.setCurrentTab( 2 );
+	               String answerCb1 = dbAnswer.get("cb1").toString();
+	               String answerCb2 = dbAnswer.get("cb2").toString();
+	               String answerCb3 = dbAnswer.get("cb3").toString();
+	               String answerCb4 = dbAnswer.get("cb4").toString();
+
+	               String answerSum = answerCb1 + answerCb2 + answerCb3 + answerCb4;
+	               Log.i("answer sum", ""+answerSum);
+
+	               StringBuffer result = new StringBuffer();
+	               result.append(cb5.isChecked());
+	               result.append(cb6.isChecked());
+	               result.append(cb7.isChecked());
+	               result.append(cb8.isChecked());
+	               Log.i("results", ""+result);
+
+	               if (answerSum.equals(result.toString())){
+		               tabs.setCurrentTab(2);
+	               }
                }
             });
         }
+    }
+    private void getResultFromDB(String Document){
+	    DocumentReference docRef = db.collection("Quests").document(Document);
+	    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+		    @Override
+		    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+			    if (task.isSuccessful()) {
+				    DocumentSnapshot document = task.getResult();
+				    if (document.exists()) {
+					    dbAnswer = document.getData();
+				    }
+			    } else {
+				    Log.d("Something went wrong", "get failed with ", task.getException());
+			    }
+		    }
+	    });
+
     }
 }
