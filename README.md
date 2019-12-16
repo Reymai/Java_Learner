@@ -17,4 +17,4 @@ Storage: https://firebase.google.com/docs/storage/android/create-reference
 Progress bar: https://developer.android.com/reference/android/widget/ProgressBar
 Image Buttons: https://developer.android.com/reference/android/widget/ImageButton
 
-MAIN SOURCE: https://stackoverflow.com/*
+MAIN SOURCE: https://stackoverflow.com/
