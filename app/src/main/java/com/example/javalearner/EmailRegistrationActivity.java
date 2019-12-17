@@ -16,11 +16,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.base.Charsets;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hasher;
+import com.google.common.hash.Hashing;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -93,7 +98,7 @@ public class EmailRegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(final String email, String password, final String username) {
+    private void registerUser(final String email, final String password, final String username) {
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -102,7 +107,7 @@ public class EmailRegistrationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 //                            Toast.makeText(EmailRegistrationActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
                             try {
-                                registerToDatabase(username, email);
+                                registerToDatabase(username, email, password);
                             } catch (Exception exception) {
                                 exception.printStackTrace();
                                 error = exception.toString();
@@ -127,9 +132,10 @@ public class EmailRegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private void registerToDatabase(String username, String email) {
+    private void registerToDatabase(String username, String email, String password) throws NoSuchAlgorithmException {
         Map<String, Object> user = new HashMap<>();
         user.put("Username", username);
+        user.put("Password", sha256(password));
         user.put("XP", 0);
         user.put("Completed quests", 0);
         user.put("Language", Locale.getDefault().getLanguage());
@@ -168,5 +174,14 @@ public class EmailRegistrationActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private String sha256(String data){
+
+        Hasher hasher = Hashing.sha256().newHasher();
+        hasher.putString(data, Charsets.UTF_8);
+        HashCode sha256 = hasher.hash();
+
+        return sha256.toString();
     }
 }
