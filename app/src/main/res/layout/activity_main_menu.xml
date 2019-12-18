@@ -56,7 +56,9 @@
         app:layout_constraintEnd_toStartOf="@+id/Username"
         app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/i"
+        tools:srcCompat="@drawable/i" />
 
     <ImageButton
         android:id="@+id/LogoutBtn"

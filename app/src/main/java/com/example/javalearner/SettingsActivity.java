@@ -40,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+
         if (!LocaleHelper.checkLocaleSharedPreferences(user, "Locale", sharedPref, this)){
             super.recreate();
         }

@@ -12,13 +12,13 @@ import android.content.Intent;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-public class ContainerFragments extends Fragment {
+public class LibraryThemeFragments extends Fragment {
     public CardView card1, card2, card3, card4, card5, card6;
     TextView txt1, txt2, txt3, txt4, txt5, txt6;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate( R.layout.fragmented_tabs, container, false );
+        View v = inflater.inflate( R.layout.lib_theme_choose, container, false );
         // card ini
         card1 = v.findViewById( R.id.Tab1 );
         card2 = v.findViewById( R.id.tab2 );
@@ -36,24 +36,24 @@ public class ContainerFragments extends Fragment {
         card1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), QuestChoose_Basics.class);
-                intent.putExtra( "Theme" , 1 );
+                Intent intent = new Intent(view.getContext(), LibraryThemeInfoActivity.class);
+                intent.putExtra( "Lib_Theme" , 1 );
                 view.getContext().startActivity(intent);}
         });
 
         card2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), QuestChoose_Basics.class);
-                intent.putExtra( "Theme" , 2 );
+                Intent intent = new Intent(view.getContext(), LibraryThemeInfoActivity.class);
+                intent.putExtra( "Lib_Theme" , 2 );
                 view.getContext().startActivity(intent);}
         });
 
         card3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), QuestChoose_Basics.class);
-                intent.putExtra( "Theme" , 3 );
+                Intent intent = new Intent(view.getContext(), LibraryThemeInfoActivity.class);
+                intent.putExtra( "Lib_Theme" , 3 );
                 view.getContext().startActivity(intent);}
         });
 
@@ -61,8 +61,8 @@ public class ContainerFragments extends Fragment {
         card4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), QuestChoose_Basics.class);
-                intent.putExtra( "Theme" , 4 );
+                Intent intent = new Intent(view.getContext(), LibraryThemeInfoActivity.class);
+                intent.putExtra( "Lib_Theme" , 4 );
                 view.getContext().startActivity(intent);}
         });
 
@@ -70,16 +70,16 @@ public class ContainerFragments extends Fragment {
         card5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), QuestChoose_Basics.class);
-                intent.putExtra( "Theme" , 5 );
+                Intent intent = new Intent(view.getContext(), LibraryThemeInfoActivity.class);
+                intent.putExtra( "Lib_Theme" , 5 );
                 view.getContext().startActivity(intent);}
         });
 
         card6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), QuestChoose_Basics.class);
-                intent.putExtra( "Theme" , 6 );
+                Intent intent = new Intent(view.getContext(), LibraryThemeInfoActivity.class);
+                intent.putExtra( "Lib_Theme" , 6 );
                 view.getContext().startActivity(intent);}
         });
 

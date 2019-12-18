@@ -6,24 +6,27 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class LibraryThemeListActivity extends AppCompatActivity {
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction ;
+    ContainerFragments lib_themes = new ContainerFragments();
 
-    ImageButton mBackBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library_theme_list);
 
-        mBackBtn = findViewById(R.id.BackButton);
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
-        mBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LibraryThemeListActivity.this, MainMenuActivity.class));
-                finish();
-            }
-        });
+        LibraryThemeFragments lib_themes = new LibraryThemeFragments();
+
+        fragmentTransaction.replace(R.id.Lib_container,lib_themes);
+        fragmentTransaction.commit();
+
     }
     public void onBackPressed() {
         startActivity(new Intent(LibraryThemeListActivity.this, MainMenuActivity.class));
