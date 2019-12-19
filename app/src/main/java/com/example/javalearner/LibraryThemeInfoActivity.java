@@ -3,7 +3,10 @@ package com.example.javalearner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.logging.Level;
@@ -11,6 +14,7 @@ import java.util.logging.Level;
 public class LibraryThemeInfoActivity extends AppCompatActivity {
 
     TextView mThemeInfoTxt;
+    ImageButton mBackButton;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -20,6 +24,8 @@ public class LibraryThemeInfoActivity extends AppCompatActivity {
 
         int theme = getIntent().getIntExtra("Lib_Theme", 0);
         mThemeInfoTxt = findViewById(R.id.ThemeInfoTxt);
+        mBackButton = findViewById(R.id.BackButton);
+
         if (theme == 1) {
             String java_basic_1 = getString(R.string.Java_Basic);
             String java_basic_2 = getString(R.string.Java_Basic_2);
@@ -74,5 +80,12 @@ public class LibraryThemeInfoActivity extends AppCompatActivity {
 
             mThemeInfoTxt.setText(java_class + "\n\n" + java_class2 + "\n\n" + java_class3 + "\n\n" + java_class4 + "\n\n" + java_class5 + "\n\n" + java_class6);
         }
+
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LibraryThemeInfoActivity.this, LibraryThemeListActivity.class));
+            }
+        });
     }
 }
