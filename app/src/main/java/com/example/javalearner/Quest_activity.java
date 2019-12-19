@@ -1,5 +1,6 @@
 package com.example.javalearner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -68,7 +70,7 @@ public class Quest_activity extends AppCompatActivity {
 
 		final TabHost tabs = findViewById( R.id.TaskTab );
 
-		int theme = getIntent().getIntExtra("Quest_Theme", 0);
+		final int theme = getIntent().getIntExtra("Quest_Theme", 0);
 		int quest = getIntent().getIntExtra("Quest", 0);
 
 		if(theme == 1) {
@@ -98,8 +100,12 @@ public class Quest_activity extends AppCompatActivity {
 				spec.setContent( R.id.tab6 );
 				spec.setIndicator( "6" );
 
-				Text1.setText( " quest 1 theme 1 All java programms need to have a main class" );
-
+				Text1.setText( "Java представляет собой язык программирования и платформу вычислений. " +
+						"Существует множество приложений и веб-сайтов, которые не работают при отсутствии установленной Java, и с каждым днем число таких веб-сайтов и приложений увеличивается." +
+						"Java отличается быстротой, высоким уровнем защиты и надежностью. " +
+						"От портативных компьютеров до центров данных, от игровых консолей до суперкомпьютеров, используемых для научных разработок, от сотовых телефонов до сети Интернет — Java повсюду! " +
+						"Java можно загрузить бесплатно." +
+						"Если вы разрабатываете встроенное или бытовое устройство и хотите использовать в нем технологии Java, свяжитесь со специалистами Oracle и получите подробную информацию об интеграции Java в различные типы устройств." );
 				b1.setOnClickListener( new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -107,11 +113,11 @@ public class Quest_activity extends AppCompatActivity {
 					}
 				} );
 
-				Text2.setText( "What any java programm need" );
-				cb1.setText( "return" );
-				cb2.setText( "class" );
-				cb3.setText( "class main" );
-				cb4.setText( "nothing" );
+				Text2.setText( "Как можно описать java?" );
+				cb1.setText( "Бесплатный и строго типизированный объектно-ориентированный язык программирования, предназначенный для множества устройств" );
+				cb2.setText( "Язык программирования для суперкомпютеров" );
+				cb3.setText( "Проффесиональный редактор текста" );
+				cb4.setText( "Платная программа для программирования" );
 
 				b2.setOnClickListener( new View.OnClickListener() {
 					@Override
@@ -138,39 +144,16 @@ public class Quest_activity extends AppCompatActivity {
 					}
 				} );
 
-				Text3.setText( "To print something in java use System.out.println(text); " );
+				Text3.setText( "Каждая программа нуждается в объекте - что либо, обладающее определённым состоянием и поведением, имеющая определенные свойства (атрибуты) и операции над ними (методы)" +
+						"Класс — может быть определен как шаблон, который описывает поведение объекта." +
+						"Метод — является в основном поведением. Класс может содержать несколько методов. Именно в методах логически записанные данные манипулируют и выполняют все действия." +
+						"" );
 				b3.setOnClickListener( new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						String answerCb1 = dbAnswer.get( "cb5" ).toString();
-						String answerCb2 = dbAnswer.get( "cb6" ).toString();
-						String answerCb3 = dbAnswer.get( "cb7" ).toString();
-						String answerCb4 = dbAnswer.get( "cb8" ).toString();
-
-						String answerSum = answerCb1 + answerCb2 + answerCb3 + answerCb4;
-						Log.i( "answer sum", "" + answerSum );
-
-						StringBuffer result = new StringBuffer();
-						result.append( cb5.isChecked() );
-						result.append( cb6.isChecked() );
-						result.append( cb7.isChecked() );
-						result.append( cb8.isChecked() );
-						Log.i( "results", "" + result );
-
-						if (answerSum.equals( result.toString() )) {
-							tabs.setCurrentTab( 3 );
-						}
-					}
-				} );
-				Text4.setText( "What command uses to print something" );
-				cb9.setText( "System.out.println" );
-				cb10.setText( "std::cout<<" );
-				cb11.setText( "vivod" );
-				cb12.setText( "println" );
-				b4.setOnClickListener( new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						tabs.setCurrentTab( 5 );
+						Intent intent = new Intent(v.getContext(), MainMenuActivity.class);
+						intent.putExtra( "Quest_Theme" , 1 );
+						v.getContext().startActivity( intent );
 					}
 				} );
 			}
