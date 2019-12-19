@@ -1,7 +1,10 @@
 package com.example.javalearner;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,6 +23,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         mExitBtn = findViewById(R.id.BackBtn);
         mUsername = findViewById(R.id.UsernameTxt);
+
+        SharedPreferences sharedPref = ProfileActivity.this.getPreferences( Context.MODE_PRIVATE);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {

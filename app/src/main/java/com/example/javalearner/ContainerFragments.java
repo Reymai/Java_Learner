@@ -8,7 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.content.Intent;
-
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -57,7 +56,6 @@ public class ContainerFragments extends Fragment {
                 view.getContext().startActivity(intent);}
         });
 
-
         card4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +63,6 @@ public class ContainerFragments extends Fragment {
                 intent.putExtra( "Theme" , 4 );
                 view.getContext().startActivity(intent);}
         });
-
 
         card5.setOnClickListener(new View.OnClickListener() {
             @Override
