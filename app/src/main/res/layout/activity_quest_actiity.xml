@@ -474,38 +474,38 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.0" />
 
-                        <RadioButton
-                            android:id="@+id/r"
+                        <RadioGroup
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="RadioButton"
-                            app:layout_constraintBottom_toBottomOf="@id/r1"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/txt7" />
-
-                        <RadioButton
-                            android:id="@+id/r1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="RadioButton"
-                            app:layout_constraintBottom_toBottomOf="@id/r2"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/r" />
-
-                        <RadioButton
-                            android:id="@+id/r2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="RadioButton"
                             app:layout_constraintBottom_toBottomOf="@id/btn7"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/r1" />
+                            app:layout_constraintTop_toTopOf="@id/txt7" >
+
+                            <RadioButton
+                                android:id="@+id/r"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="25dp"
+                                android:text="RadioButton" />
+
+                            <RadioButton
+                                android:id="@+id/r1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="25dp"
+                                android:text="RadioButton" />
+
+                            <RadioButton
+                                android:id="@+id/r2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="25dp"
+                                android:text="RadioButton" />
+
+                        </RadioGroup>
 
                         <Button
                             android:id="@+id/btn7"

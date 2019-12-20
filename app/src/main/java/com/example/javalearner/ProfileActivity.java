@@ -43,8 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String dbxp = DatabaseHelper.DatabaseRead("users", user.getEmail(), "XP");
-            String dbcompleted = DatabaseHelper.DatabaseRead( "users", user.getEmail(), "Completed quests" );
             DatabaseHelper.DatabaseListen("users", user.getEmail(), "XP", sharedPref);
 
             try {
@@ -58,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
-            mInfo.setText( "XP: " + dbxp + "\nLevel: " + level + "\nCompleted quests: " + dbcompleted );
+            mInfo.setText( "XP: " + progress + "\nLevel: " + level );
             mUsername.setText(name);
         }
 
