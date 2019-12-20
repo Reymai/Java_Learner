@@ -1,5 +1,6 @@
 # Java_Learner
 Sources:
+Login , Registration and Password recovery background author : https://dribbble.com/MikaelGustafsson
 Main menu dashboard with animation : https://www.youtube.com/watch?v=hKcrkvHZDcQ
 Layout information : https://developer.android.com/guide/topics/ui/declaring-layout
 Autorization and registration: https://firebase.google.com/docs/auth/android
@@ -16,5 +17,5 @@ Storage: https://firebase.google.com/docs/storage/android/create-reference
          https://www.youtube.com/watch?v=ZmgncLHk_s4
 Progress bar: https://developer.android.com/reference/android/widget/ProgressBar
 Image Buttons: https://developer.android.com/reference/android/widget/ImageButton
-
+Tab host : https://www.tutorialspoint.com/how-do-i-use-tabhost-for-android
 MAIN SOURCE: https://stackoverflow.com/
