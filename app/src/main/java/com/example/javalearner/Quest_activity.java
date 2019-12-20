@@ -1,12 +1,14 @@
 package com.example.javalearner;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ public class Quest_activity extends AppCompatActivity {
     CheckBox cb1,cb2,cb3,cb4,cb5,cb6,cb7,cb8,cb9,cb10, cb11, cb12;
     Button b1, b2, b3, b4, b5;
     ImageView img, img1, img2, img3;
+    RadioButton rb1, rb2, rb3;
 	private static Map dbAnswer;
 
 	private static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -40,12 +43,17 @@ public class Quest_activity extends AppCompatActivity {
 		img = findViewById( R.id.img );
 		img1 = findViewById( R.id.img1 );
 		img2 = findViewById( R.id.img2 );
+		img3 = findViewById( R.id.img3 );
 
 		b1 = findViewById( R.id.btn );
 		b2 = findViewById( R.id.btn1 );
 		b3 = findViewById( R.id.btn2 );
 		b4 = findViewById( R.id.btn3 );
 		b5 = findViewById( R.id.btn5 );
+
+		rb1 = findViewById( R.id.r );
+		rb2 = findViewById( R.id.r1 );
+		rb3 = findViewById( R.id.r2 );
 
 		cb1 = findViewById( R.id.a );
 		cb2 = findViewById( R.id.a1 );
@@ -99,6 +107,12 @@ public class Quest_activity extends AppCompatActivity {
 				spec = tabs.newTabSpec( "tag6" );
 				spec.setContent( R.id.tab6 );
 				spec.setIndicator( "6" );
+				spec = tabs.newTabSpec( "tag7" );
+				spec.setContent( R.id.tab7 );
+				spec.setIndicator( "7" );
+				spec = tabs.newTabSpec( "tag8" );
+				spec.setContent( R.id.tab8 );
+				spec.setIndicator( "8" );
 
 				Text1.setText( "Java представляет собой язык программирования и платформу вычислений. " +
 						"Существует множество приложений и веб-сайтов, которые не работают при отсутствии установленной Java, и с каждым днем число таких веб-сайтов и приложений увеличивается." +
@@ -146,8 +160,7 @@ public class Quest_activity extends AppCompatActivity {
 
 				Text3.setText( "Каждая программа нуждается в объекте - что либо, обладающее определённым состоянием и поведением, имеющая определенные свойства (атрибуты) и операции над ними (методы)" +
 						"Класс — может быть определен как шаблон, который описывает поведение объекта." +
-						"Метод — является в основном поведением. Класс может содержать несколько методов. Именно в методах логически записанные данные манипулируют и выполняют все действия." +
-						"" );
+						"Метод — является в основном поведением. Класс может содержать несколько методов. Именно в методах логически записанные данные манипулируют и выполняют все действия.");
 				b3.setOnClickListener( new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -159,7 +172,7 @@ public class Quest_activity extends AppCompatActivity {
 			}
 			if (quest == 2) {
 
-				getResultFromDB( "1" );
+				getResultFromDB( "2" );
 
 				tabs.setup();
 				TabHost.TabSpec spec = tabs.newTabSpec( "tag1" );
@@ -177,17 +190,24 @@ public class Quest_activity extends AppCompatActivity {
 				spec = tabs.newTabSpec( "tag4" );
 				spec.setContent( R.id.tab4 );
 				spec.setIndicator( "4" );
-				tabs.addTab( spec );
 				spec = tabs.newTabSpec( "tag5" );
 				spec.setContent( R.id.tab5 );
 				spec.setIndicator( "5" );
-				tabs.addTab( spec );
 				spec = tabs.newTabSpec( "tag6" );
 				spec.setContent( R.id.tab6 );
 				spec.setIndicator( "6" );
-				tabs.addTab( spec );
+				spec = tabs.newTabSpec( "tag7" );
+				spec.setContent( R.id.tab7 );
+				spec.setIndicator( "7" );
+				spec = tabs.newTabSpec( "tag8" );
+				spec.setContent( R.id.tab8 );
+				spec.setIndicator( "8" );
 
-				Text1.setText( "quest 2 theme 1 All java programms need to have a main class" );
+				Text1.setText( "Первая программа - то с чего начинается всё! Для каждого 1 программа одинакова - Привет мир!" +
+						"для запуска программны мы должны создать метод main , далее создается тело кода с выводом текста по виду оно должно выглядеть примерно так" );
+
+				Drawable myDrawable = getResources().getDrawable(R.drawable.code1);
+				img.setImageDrawable(myDrawable);
 
 				b1.setOnClickListener( new View.OnClickListener() {
 					@Override
@@ -200,7 +220,6 @@ public class Quest_activity extends AppCompatActivity {
 				cb6.setText( "class" );
 				cb7.setText( "class main" );
 				cb8.setText( "nothing" );
-
 
 				b2.setOnClickListener( new View.OnClickListener() {
 					@Override

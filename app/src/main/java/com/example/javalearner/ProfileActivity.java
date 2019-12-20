@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageButton mExitBtn;
-    TextView mUsername;
+    TextView mUsername, mInfo;
     ImageView mProfileImg;
 
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -29,19 +29,36 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         mExitBtn = findViewById(R.id.BackBtn);
         mUsername = findViewById(R.id.UsernameTxt);
+        mInfo = findViewById( R.id.UserInfo );
         mProfileImg = findViewById(R.id.ProfileImg);
 
-//        Uri photo = user.getPhotoUrl();
-//        Glide.with(this)
-//                .load(photo)
-//                .into(mProfileImg);
+        int progress = 0;
+
+        Uri photo = user.getPhotoUrl();
+        Glide.with(this)
+                .load(photo)
+                .into(mProfileImg);
 
         SharedPreferences sharedPref = ProfileActivity.this.getPreferences( Context.MODE_PRIVATE);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            String dbxp = DatabaseHelper.DatabaseRead("users", user.getEmail(), "XP");
+            String dbcompleted = DatabaseHelper.DatabaseRead( "users", user.getEmail(), "Completed quests" );
+            DatabaseHelper.DatabaseListen("users", user.getEmail(), "XP", sharedPref);
+
+            try {
+                progress = Integer.parseInt(sharedPref.getString("XP", "0"));
+            }catch (Exception e){
+                Log.e("PROGRESS", ""+e);
+            }
+
+            String level = Integer.toString(ProgressHelper.levelCounter(progress));
+            int max = ProgressHelper.getMaxExperience(Integer.parseInt(level));
+
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
+            mInfo.setText( "XP: " + dbxp + "\nLevel: " + level + "\nCompleted quests: " + dbcompleted );
             mUsername.setText(name);
         }
 
